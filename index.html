@@ -328,13 +328,60 @@ async function refreshUser(){
 }
 function authMode(su){S.signup=su;$('#authT').textContent=su?'Create account':'Sign in';$('#authS').textContent=su?'Join SPYDERSHOPPER to order and track shipments.':'Welcome back to SPYDERSHOPPER.';$('#nameL').hidden=!su;$('#authGo').textContent=su?'Create account':'Sign in';$('#authAsk').textContent=su?'Already registered?':'No account?';$('#authSw').textContent=su?'Sign in':'Create account'}
 $('#authSw').onclick=()=>authMode(!S.signup);
-$('#signBtn').onclick=async()=>{ if(S.user){await sb.auth.signOut();await refreshUser();toast('Signed out')} else {authMode(false);open('#authOv')} };
+
+$('#signBtn').onclick=async()=>{ 
+  if(S.user){
+    S.user=null; S.admin=false;
+    $('#signTxt').textContent='Sign in'; 
+    $('#joinBtn').hidden=false; 
+    $('#adminBtn').hidden=true;
+    await sb.auth.signOut();
+    toast('Signed out');
+  } else {
+    authMode(false);
+    open('#authOv');
+  }
+};
+
 $('#joinBtn').onclick=()=>{authMode(true);open('#authOv')};
-$('#authF').onsubmit=async e=>{e.preventDefault(); if(!live)return toast('Add your Supabase keys first');
-  const email=$('#aemail').value,password=$('#apass').value;
-  const r = S.signup? await sb.auth.signUp({email,password,options:{data:{full_name:$('#aname').value}}}) : await sb.auth.signInWithPassword({email,password});
-  if(r.error)return toast(r.error.message);
-  shut(); await refreshUser(); toast(S.signup&&!r.data.session?'Check your email to confirm':'Welcome to SPYDERSHOPPER');
+
+$('#authF').onsubmit=async e=>{
+  e.preventDefault(); 
+  if(!live) return toast('Add your Supabase keys first');
+  
+  const email = $('#aemail').value;
+  const password = $('#apass').value;
+  const fullName = $('#aname').value;
+  
+  const btn = $('#authGo');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Please wait...';
+
+  let r;
+  if (S.signup) {
+    r = await sb.auth.signUp({
+      email, 
+      password, 
+      options: { data: { full_name: fullName } }
+    });
+  } else {
+    r = await sb.auth.signInWithPassword({ email, password });
+  }
+
+  btn.disabled = false;
+  btn.textContent = originalText;
+
+  if (r.error) return toast(r.error.message);
+
+  if (S.signup && !r.data.session) {
+    shut();
+    toast('Success! Please check your email to confirm your account.');
+  } else {
+    shut(); 
+    await refreshUser(); 
+    toast('Welcome to SPYDERSHOPPER');
+  }
 };
 
 /* ---------- admin ---------- */
