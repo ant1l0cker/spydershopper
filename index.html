@@ -218,7 +218,10 @@ footer p{max-width:340px;margin-top:10px}
 @media(max-width:768px){.catgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.catgrid{grid-template-columns:1fr}}
 
+[hidden]{display:none!important}
 /* ===== Dark mode ===== */
+[data-theme=dark] .hsearch input,[data-theme=dark] .sbox input{background:transparent;color:var(--ink)}
+[data-theme=dark] input::placeholder,[data-theme=dark] textarea::placeholder{color:#8a8a96}
 [data-theme=dark]{--ink:#ececf1;--mut:#9a9aa6;--line:#2e2e37;--bg:#0f0f12;--card:#1a1a1f}
 [data-theme=dark] header,[data-theme=dark] .strip,[data-theme=dark] .panel,[data-theme=dark] .card,[data-theme=dark] .md,[data-theme=dark] .drawer,[data-theme=dark] .empty,[data-theme=dark] .hsearch,[data-theme=dark] .sbox,[data-theme=dark] .aib{background:#1a1a1f}
 [data-theme=dark] .hero{background:radial-gradient(900px 400px at 85% 0,#3a1218,transparent),linear-gradient(#18121a,#0f0f12)}
