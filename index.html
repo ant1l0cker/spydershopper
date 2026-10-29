@@ -218,6 +218,75 @@ footer p{max-width:340px;margin-top:10px}
 @media(max-width:768px){.catgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.catgrid{grid-template-columns:1fr}}
 
+/* ===== Tiles, product page, admin dashboard ===== */
+.fs .im.has{background-size:cover;background-position:center;background-repeat:no-repeat}
+.fs .im.has svg{display:none}
+.card{cursor:pointer}
+.pback{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-weight:700;color:var(--red)}
+.pg{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;margin-top:14px;align-items:start}
+.gal{background:var(--card);border-radius:16px;padding:16px}
+.gmain{position:relative;aspect-ratio:1;border-radius:12px;background:#f3f3f5;display:grid;place-items:center;overflow:hidden;color:#c4c4cc}
+.gmain img{width:100%;height:100%;object-fit:contain}
+.gmain svg{width:80px;height:80px;fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.gnav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);color:#17171a;font-size:24px;font-weight:700;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.25);line-height:1}
+.gnav.p{left:10px}
+.gnav.n{right:10px}
+.gcount{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);color:#fff;border-radius:10px;font-size:12px;padding:2px 9px}
+.thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}
+.thumbs button{aspect-ratio:1;border:2px solid transparent;border-radius:10px;background:#f3f3f5 center/cover no-repeat}
+.thumbs button.on{border-color:var(--red)}
+.pinfo{background:var(--card);border-radius:16px;padding:22px;display:grid;gap:14px}
+.pinfo h1{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;line-height:1.15}
+.pprice{font-size:30px;font-weight:800;color:var(--red)}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badges:empty{display:none}
+.badge{background:#fff0f1;color:var(--red);border-radius:20px;padding:3px 12px;font-weight:700;font-size:12px}
+.badge.v{background:#e8f1ff;color:#0b5ed7}
+.qrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.qrow input{width:110px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:transparent}
+.qrow .btn{height:46px;padding:0 28px}
+.btn.ghost{background:none;border:1.5px solid var(--red);color:var(--red)}
+.ptable{width:100%;border-collapse:collapse}
+.ptable td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.ptable td:first-child{color:var(--mut);width:42%;padding-right:12px}
+.ptable td:last-child{font-weight:600}
+.pblock{background:var(--card);border-radius:16px;padding:22px;margin-top:14px}
+.pblock h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.pdesc{white-space:pre-wrap}
+.admbar{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.admbar .wrap{display:flex;align-items:center;gap:20px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.admtabs{display:flex;gap:6px;flex-wrap:wrap}
+.admtabs button{padding:8px 16px;border-radius:20px;font-weight:700}
+.admtabs button.on{background:var(--red);color:#fff}
+.admr{margin-left:auto;display:flex;gap:16px;align-items:center;font-weight:700}
+.admhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px}
+.admhead h2{font-size:24px;font-weight:800}
+.admcard{background:var(--card);border-radius:16px;padding:22px}
+.prow{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.prow:last-child{border:0}
+.prow .th{width:64px;height:64px;border-radius:10px;background:#f3f3f5 center/cover no-repeat;flex:none;display:grid;place-items:center;color:#b5b5be}
+.prow .th svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.prow .tx{flex:1;min-width:0}
+.prow .tx b{display:block;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow .tx span{color:var(--mut);font-size:13px}
+.prow .acts{display:flex;gap:14px;font-weight:700}
+.edit{color:#0b5ed7;font-weight:700}
+.imgm{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:10px 0}
+.imgm .it2{position:relative;border:1.5px solid var(--line);border-radius:12px;padding:6px;display:grid;gap:6px;text-align:center}
+.imgm .pv{aspect-ratio:1;border-radius:8px;background:#f3f3f5 center/cover no-repeat}
+.imgm .it2 em{position:absolute;left:10px;top:10px;background:var(--red);color:#fff;font-style:normal;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px}
+.imgm .it2 button{font-size:12px;font-weight:700;color:#0b5ed7}
+.imgm .it2 button.del{color:var(--red)}
+.tilegrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tilecard .pv{height:160px;border-radius:12px;background:#f3f3f5 center/cover no-repeat;margin:6px 0;display:grid;place-items:center;color:#9a9aa6;font-weight:600;text-align:center;padding:8px}
+.gate{max-width:460px;margin:80px auto;text-align:center}
+@media(max-width:768px){.pg{grid-template-columns:1fr}.imgm{grid-template-columns:repeat(3,1fr)}.tilegrid{grid-template-columns:1fr}.prow .acts{flex-direction:column;gap:6px}.pinfo h1{font-size:22px}.admr{margin-left:0}}
+[data-theme=dark] .gmain,[data-theme=dark] .thumbs button,[data-theme=dark] .prow .th,[data-theme=dark] .imgm .pv,[data-theme=dark] .tilecard .pv{background-color:#25252b}
+[data-theme=dark] .badge{background:#2a1519}
+[data-theme=dark] .badge.v{background:#13233f;color:#6ea8fe}
+[data-theme=dark] .edit,[data-theme=dark] .imgm .it2 button:not(.del){color:#6ea8fe}
+[data-theme=dark] .pprice{color:var(--red-l)}
+[data-theme=dark] .qrow input{color:var(--ink)}
 [hidden]{display:none!important}
 /* ===== Dark mode ===== */
 [data-theme=dark] .hsearch input,[data-theme=dark] .sbox input{background:transparent;color:var(--ink)}
@@ -294,6 +363,7 @@ footer p{max-width:340px;margin-top:10px}
  </div>
 </header>
 
+<div id="viewStore">
 <section class="hero" id="top">
  <svg class="webbg" style="color:#d4001f"><use href="#web"/></svg><svg class="webbg l" style="color:#d4001f"><use href="#web"/></svg>
  <div class="wrap">
@@ -314,8 +384,8 @@ footer p{max-width:340px;margin-top:10px}
 <main class="wrap">
  <div class="zone" id="cats">
   <aside class="panel cats"><h3>Categories for you</h3><div id="catList"></div></aside>
-  <div class="panel fs"><h3><small>Frequently searched</small>Laptops</h3><div class="im" data-q="laptop" role="button" aria-label="Search laptops"><svg viewBox="0 0 24 24"><use href="#i-laptop"/></svg></div></div>
-  <div class="panel fs"><h3><small>Frequently searched</small>Sunglasses</h3><div class="im" data-q="sunglasses" role="button" aria-label="Search sunglasses"><svg viewBox="0 0 24 24"><use href="#i-glasses"/></svg></div></div>
+  <div class="panel fs" id="tile1"></div>
+  <div class="panel fs" id="tile2"></div>
   <div class="ban"><svg><use href="#web"/></svg><div><h2>Catch the best deals in the web.</h2><p>Verified suppliers, factory-direct prices, shipped to Kenya.</p></div><button id="shopAll">Shop now</button></div>
  </div>
 
@@ -324,6 +394,9 @@ footer p{max-width:340px;margin-top:10px}
  <div class="fbar" id="fbar"></div>
  <div class="grid" id="grid"></div>
 </main>
+</div>
+
+<div id="viewProduct" hidden><main class="wrap" id="pbody"></main></div>
 
 <footer><div class="wrap">
  <div><div class="logo"><svg width="40" height="40"><use href="#logo"/></svg>SPYDERSHOPPER</div><p>Wholesale sourcing from verified suppliers, woven into one network.</p></div>
@@ -344,32 +417,67 @@ footer p{max-width:340px;margin-top:10px}
  <p class="note"><span id="authAsk">No account?</span> <button class="alt" id="authSw" type="button">Create account</button></p>
 </div></div>
 
-<!-- Admin (reachable only via /#admin) -->
-<div class="ov" id="admOv"><div class="md wide">
- <button class="x" data-close aria-label="Close">&times;</button>
- <h3>Admin: post a product</h3><p class="note">Products appear on the storefront immediately.</p>
- <form class="f two" id="pf">
-  <label class="full">Product title<input id="p_title" required minlength="3"></label>
-  <label>Category<select id="p_cat"></select></label>
-  <label>Currency<select id="p_cur"><option>KES</option><option>USD</option></select></label>
-  <label>Price (min)<input id="p_min" type="number" step="0.01" min="0" required></label>
-  <label>Price (max, optional)<input id="p_max" type="number" step="0.01" min="0"></label>
-  <label>Minimum order<input id="p_moq" type="number" min="1" value="1"></label>
-  <label>Unit<input id="p_unit" value="piece"></label>
-  <label>Supplier name<input id="p_sup" value="SPYDERSHOPPER Supplier"></label>
-  <label>Supplier country<input id="p_cn" value="CN" maxlength="3"></label>
-  <label>Years active<input id="p_yrs" type="number" min="0" value="1"></label>
-  <label>Units sold<input id="p_sold" type="number" min="0" value="0"></label>
-  <label class="full">Description<textarea id="p_desc" rows="3"></textarea></label>
-  <label>Tags (comma separated)<input id="p_tags" placeholder="sunglasses, men"></label>
-  <label>Product image<input id="p_img" type="file" accept="image/*"></label>
-  <label><span><input type="checkbox" id="p_ver" style="width:auto"> Verified supplier</span></label>
-  <label><span><input type="checkbox" id="p_feat" style="width:auto"> Featured</span></label>
-  <button class="btn full" id="pgo">Publish product</button>
- </form>
- <div class="sec" style="margin-top:26px"><h2 style="font-size:18px">Your products</h2></div>
- <div id="alist"></div>
-</div></div>
+<!-- Admin dashboard (reachable only via /#admin) -->
+<div id="viewAdmin" hidden>
+ <div class="admbar"><div class="wrap">
+  <a class="logo" href="#" aria-label="Back to store"><svg><use href="#logo"/></svg>Admin</a>
+  <div class="admtabs" id="admTabs"><button type="button" class="on" data-atab="products">Products</button><button type="button" data-atab="tiles">Homepage tiles</button></div>
+  <div class="admr"><a href="#" id="admBack" class="alt">Back to store</a><button type="button" id="admOut" hidden>Sign out</button></div>
+ </div></div>
+ <div class="wrap" style="padding-bottom:60px">
+  <div class="admcard gate" id="admGate" hidden>
+   <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px">Admin dashboard</h3>
+   <p class="note" id="admGateMsg"></p>
+   <div class="f"><button type="button" class="btn" id="admGateBtn">Sign in</button></div>
+  </div>
+  <div id="admMain" hidden>
+   <section id="atab-products">
+    <div class="admhead"><h2>Products</h2><button class="btn" id="newProd" type="button">New product</button></div>
+    <div class="admcard" id="alist"></div>
+   </section>
+   <section id="atab-edit" hidden>
+    <div class="admhead"><h2 id="edTitle">New product</h2><button class="alt" id="edCancel" type="button">Back to products</button></div>
+    <div class="admcard">
+     <form class="f two" id="pf">
+      <label class="full">Product title<input id="p_title" required minlength="3"></label>
+      <label>Category<select id="p_cat"></select></label>
+      <label>Currency<select id="p_cur"><option>KES</option><option>USD</option></select></label>
+      <label>Price (min)<input id="p_min" type="number" step="0.01" min="0" required></label>
+      <label>Price (max, optional)<input id="p_max" type="number" step="0.01" min="0"></label>
+      <label>Minimum order<input id="p_moq" type="number" min="1" value="1"></label>
+      <label>Unit<input id="p_unit" value="piece"></label>
+      <label>Stock available<input id="p_stock" type="number" min="0"></label>
+      <label>Brand<input id="p_brand"></label>
+      <label>Model number<input id="p_model"></label>
+      <label>Lead time<input id="p_lead" placeholder="e.g. 7-14 days"></label>
+      <label class="full">Shipping info<input id="p_ship" placeholder="e.g. Ships from Nairobi, delivery in 2-3 days"></label>
+      <label>Supplier name<input id="p_sup" value="SPYDERSHOPPER Supplier"></label>
+      <label>Supplier country<input id="p_cn" value="CN" maxlength="3"></label>
+      <label>Years active<input id="p_yrs" type="number" min="0" value="1"></label>
+      <label>Units sold<input id="p_sold" type="number" min="0" value="0"></label>
+      <label class="full">Description<textarea id="p_desc" rows="5"></textarea></label>
+      <label class="full">Specifications (one per line, Key: Value)<textarea id="p_specs" rows="4" placeholder="Material: Stainless steel&#10;Weight: 250g"></textarea></label>
+      <label class="full">Tags (comma separated)<input id="p_tags" placeholder="sunglasses, men"></label>
+      <div class="full">
+       <b style="font-size:13px">Images <span id="imgCount">(0/10)</span></b>
+       <p class="note" style="margin-top:2px">Up to 10 images. The first image is the main one shown on product cards.</p>
+       <div class="imgm" id="imgMgr"></div>
+       <input id="p_img" type="file" accept="image/*" multiple>
+      </div>
+      <label><span><input type="checkbox" id="p_ver" style="width:auto"> Verified supplier</span></label>
+      <label><span><input type="checkbox" id="p_feat" style="width:auto"> Featured</span></label>
+      <button class="btn full" id="pgo">Save product</button>
+     </form>
+    </div>
+   </section>
+   <section id="atab-tiles" hidden>
+    <div class="admhead"><h2>Homepage tiles</h2></div>
+    <p class="note" style="margin:-6px 0 14px">These are the two "Frequently searched" tiles on the storefront. Set a label and image, then choose a product to open or a search keyword.</p>
+    <div class="tilegrid" id="tilesBox"></div>
+   </section>
+  </div>
+ </div>
+</div>
 
 <!-- Quote -->
 <div class="ov" id="rfqOv"><div class="md">
@@ -534,7 +642,7 @@ function renderGrid(){
   $('#grid').innerHTML = S.products.length ? S.products.map(p=>{
     const pr = p.price_max&&p.price_max!=p.price_min?`${money(p.price_min,p.currency)}-${Number(p.price_max).toLocaleString()}`:money(p.price_min,p.currency);
     const ph = p.image_url?`style="background-image:url('${esc(p.image_url)}')"`:'';
-    return `<article class="card"><div class="ph" ${ph}>${p.image_url?'':ICON_BOX}${p.is_featured?'<em>Hot</em>':''}</div>
+    return `<article class="card" data-view="${esc(p.id)}"><div class="ph" ${ph}>${p.image_url?'':ICON_BOX}${p.is_featured?'<em>Hot</em>':''}</div>
     <div class="bd"><h4>${esc(p.title)}</h4>${p.reorder_rate?`<div class="meta">Reorder rate ${p.reorder_rate}%</div>`:''}
     <div class="price">${pr}</div><div class="meta">MOQ: ${p.moq} ${esc(p.moq_unit||'piece')} &middot; ${Number(p.sold_count||0).toLocaleString()} sold</div>
     <div class="ver">${p.verified?'<span class="sp"><svg class="ico"><use href="#i-check"/></svg>Verified</span>':''}<s>${p.years_active||1} yrs &middot; ${esc(p.supplier_country||'CN')}</s></div>
@@ -560,6 +668,7 @@ $('#signBtn').onclick=async()=>{
     $('#adminBtn').hidden=true;
     await sb.auth.signOut();
     toast('Signed out');
+    gateAdmin();
   } else {
     authMode(false);
     open('#authOv');
@@ -608,31 +717,211 @@ $('#authF').onsubmit=async e=>{
   }
 };
 
-/* ---------- admin (only via /#admin) ---------- */
+/* ---------- routing: store / product page / admin dashboard ---------- */
+function showViews(){
+  const h=location.hash,a=h==='#admin',p=h.startsWith('#product/');
+  $('#viewStore').hidden=a||p;$('#viewProduct').hidden=!p;$('#viewAdmin').hidden=!a;$('header').hidden=a;$('footer').hidden=a;
+  return{a,p};
+}
+function route(){
+  const{a,p}=showViews();
+  if(a)gateAdmin();else if(p)loadProductPage(decodeURIComponent(location.hash.slice(9)));
+}
+function goStore(){if(location.hash)history.pushState(null,'',location.pathname+location.search);route()}
+window.addEventListener('hashchange',route);
+
+/* ---------- homepage tiles (storefront) ---------- */
+const DEFAULT_TILES=[{slot:1,label:'Laptops',subtitle:'Frequently searched',query:'laptop',product_id:null,image_url:null},{slot:2,label:'Sunglasses',subtitle:'Frequently searched',query:'sunglasses',product_id:null,image_url:null}];
+const TILE_ICON={1:'#i-laptop',2:'#i-glasses'};
+S.tiles=DEFAULT_TILES;
+async function loadTiles(){
+  if(live){const{data}=await sb.from('featured_tiles').select('*').order('slot');if(data&&data.length)S.tiles=[1,2].map(s=>({...DEFAULT_TILES[s-1],...(data.find(x=>x.slot===s)||{})}))}
+  drawTiles();
+}
+function drawTiles(){
+  (S.tiles||DEFAULT_TILES).forEach(t=>{
+    const act=t.product_id?`data-view="${esc(t.product_id)}"`:`data-q="${esc(t.query||t.label)}"`;
+    const el=$('#tile'+t.slot);if(!el)return;
+    el.innerHTML=`<h3><small>${esc(t.subtitle||'Frequently searched')}</small>${esc(t.label)}</h3><div class="im${t.image_url?' has':''}" ${act} ${t.image_url?`style="background-image:url('${esc(t.image_url)}')"`:''} role="button" aria-label="${esc(t.label)}"><svg viewBox="0 0 24 24"><use href="${TILE_ICON[t.slot]}"/></svg></div>`;
+  });
+}
+
+/* ---------- product page ---------- */
+const PP={p:null,i:0,imgs:[]};
+function addToCart(p,qty){
+  const ex=S.cart.find(i=>i.id===p.id);
+  ex?ex.qty+=qty:S.cart.push({id:p.id,title:p.title,price:+p.price_min,cur:p.currency,qty,img:p.image_url||null});
+  saveCart();toast('Added to cart');
+}
+async function loadProductPage(id){
+  const box=$('#pbody');
+  box.innerHTML='<p class="note" style="margin-top:30px">Loading product...</p>';
+  let p=null;
+  if(live){const{data}=await sb.from('products').select('*').eq('id',id).maybeSingle();p=data}
+  else p=DEMO.find(d=>String(d.id)===String(id));
+  if(!p){box.innerHTML='<div class="empty" style="margin-top:20px"><b>Product not found.</b><br><a class="alt" href="#">Back to store</a></div>';return}
+  PP.p=p;PP.i=0;
+  PP.imgs=(Array.isArray(p.images)&&p.images.length?p.images:(p.image_url?[p.image_url]:[])).slice(0,10);
+  box.innerHTML=productHTML(p);
+  drawGallery();
+  window.scrollTo(0,0);
+}
+function productHTML(p){
+  const cat=(S.cats.find(c=>String(c.id)===String(p.category_id)||c.slug===p.cat)||{}).name;
+  const pr=p.price_max&&p.price_max!=p.price_min?`${money(p.price_min,p.currency)} - ${money(p.price_max,p.currency)}`:money(p.price_min,p.currency);
+  const moq=p.moq||1;
+  const rows=[['Brand',p.brand],['Model number',p.model_number],['Category',cat],['Minimum order',`${moq} ${p.moq_unit||'piece'}`],['Stock available',p.stock!=null&&p.stock!==''?Number(p.stock).toLocaleString():null],['Lead time',p.lead_time],['Shipping',p.shipping_info],['Units sold',Number(p.sold_count||0).toLocaleString()],['Tags',Array.isArray(p.tags)?p.tags.join(', '):p.tags]].filter(r=>r[1]);
+  const sup=[['Supplier',p.supplier_name],['Country',p.supplier_country],['Years active',p.years_active],['Verified',p.verified?'Yes':'No']].filter(r=>r[1]!=null&&r[1]!=='');
+  const specs=(Array.isArray(p.specs)?p.specs:[]).filter(s=>s&&s.k).map(s=>[s.k,s.v]);
+  const tbl=a=>`<table class="ptable">${a.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}</table>`;
+  return `<button class="pback" type="button" data-back>&lsaquo; Back to store</button>
+  <div class="pg">
+   <div class="gal"><div class="gmain" id="gmain"></div><div class="thumbs" id="gthumbs"></div></div>
+   <div class="pinfo">
+    <div class="badges">${p.verified?'<span class="badge v">Verified supplier</span>':''}${p.is_featured?'<span class="badge">Hot</span>':''}</div>
+    <h1>${esc(p.title)}</h1>
+    <div class="pprice">${pr}</div>
+    <div class="meta">Minimum order: ${moq} ${esc(p.moq_unit||'piece')} &middot; ${Number(p.sold_count||0).toLocaleString()} sold</div>
+    <div class="qrow"><input id="pq" type="number" min="${moq}" value="${moq}" aria-label="Quantity"><button class="btn" type="button" data-padd>Add to cart</button><button class="btn ghost" type="button" data-pquote>Request quote</button></div>
+    ${rows.length?tbl(rows):''}
+   </div>
+  </div>
+  ${sup.length?`<div class="pblock"><h3>Supplier</h3>${tbl(sup)}</div>`:''}
+  ${p.description?`<div class="pblock"><h3>Product description</h3><div class="pdesc">${esc(p.description)}</div></div>`:''}
+  ${specs.length?`<div class="pblock"><h3>Specifications</h3>${tbl(specs)}</div>`:''}`;
+}
+function drawGallery(){
+  const g=$('#gmain');if(!g)return;const im=PP.imgs;
+  if(!im.length){g.innerHTML=ICON_BOX;$('#gthumbs').innerHTML='';return}
+  g.innerHTML=`<img src="${esc(im[PP.i])}" alt="${esc(PP.p.title)}">`+(im.length>1?`<button class="gnav p" type="button" data-gnav="-1" aria-label="Previous image">&lsaquo;</button><button class="gnav n" type="button" data-gnav="1" aria-label="Next image">&rsaquo;</button><span class="gcount">${PP.i+1}/${im.length}</span>`:'');
+  $('#gthumbs').innerHTML=im.length>1?im.map((u,i)=>`<button type="button" data-gi="${i}" class="${i===PP.i?'on':''}" style="background-image:url('${esc(u)}')" aria-label="Image ${i+1}"></button>`).join(''):'';
+}
+
+/* ---------- admin dashboard (only via /#admin) ---------- */
+const E={id:null,images:[]};
+const T={};
+function admTab(t){
+  ['products','edit','tiles'].forEach(n=>{$('#atab-'+n).hidden=(n!==t)});
+  $$('#admTabs button').forEach(b=>b.classList.toggle('on',b.dataset.atab===(t==='edit'?'products':t)));
+  if(t==='tiles')tilesAdmin();
+}
 function gateAdmin(){
   if(location.hash!=='#admin')return;
-  if(!live)return toast('Connect Supabase to use admin');
-  if(S.admin){open('#admOv');adminList()}
-  else if(!S.user){authMode(false);open('#authOv');toast('Sign in with your admin account')}
-  else toast('Admin access only');
+  const ok=!!(live&&S.admin);
+  $('#admMain').hidden=!ok;$('#admGate').hidden=ok;$('#admOut').hidden=!S.user;
+  if(ok){admTab('products');adminList();return}
+  $('#admGateMsg').textContent=!live?'Connect Supabase to use the admin dashboard.':!S.user?'Sign in with your admin account to continue.':'This account does not have admin access.';
+  $('#admGateBtn').hidden=!live||!!S.user;
 }
-window.addEventListener('hashchange',gateAdmin);
+$('#admGateBtn').onclick=()=>{authMode(false);open('#authOv')};
+$('#admOut').onclick=()=>$('#signBtn').click();
 async function adminList(){
-  const{data}=await sb.from('products').select('id,title,image_url,price_min,currency').order('created_at',{ascending:false}).limit(50);
-  $('#alist').innerHTML=(data||[]).map(p=>`<div class="arow">${p.image_url?`<img src="${esc(p.image_url)}" alt="">`:`<div class="t">${ICON_BOX}</div>`}<b>${esc(p.title)}</b><span>${money(p.price_min,p.currency)}</span><button class="del" data-del="${p.id}">Delete</button></div>`).join('')||'<p class="note">No products yet.</p>';
+  const{data,error}=await sb.from('products').select('id,title,image_url,images,price_min,currency,category_id').order('created_at',{ascending:false}).limit(300);
+  if(error)return toast(error.message);
+  const cn=id=>(S.cats.find(c=>String(c.id)===String(id))||{}).name||'No category';
+  $('#alist').innerHTML=(data||[]).map(p=>{
+    const n=(Array.isArray(p.images)&&p.images.length)||(p.image_url?1:0);
+    return `<div class="prow"><div class="th" ${p.image_url?`style="background-image:url('${esc(p.image_url)}')"`:''}>${p.image_url?'':ICON_BOX}</div><div class="tx"><b>${esc(p.title)}</b><span>${money(p.price_min,p.currency)} &middot; ${esc(cn(p.category_id))} &middot; ${n} image${n==1?'':'s'}</span></div><div class="acts"><button class="edit" type="button" data-edit="${esc(p.id)}">Edit</button><button class="del" type="button" data-del="${esc(p.id)}">Delete</button></div></div>`;
+  }).join('')||'<p class="note">No products yet. Click New product to add one.</p>';
 }
-$('#adminBtn').onclick=()=>{open('#admOv');adminList()};
-$('#pf').onsubmit=async e=>{e.preventDefault(); const b=$('#pgo');b.disabled=true;b.textContent='Publishing…';
+function drawImgs(){
+  $('#imgCount').textContent=`(${E.images.length}/10)`;
+  $('#imgMgr').innerHTML=E.images.map((u,i)=>`<div class="it2">${i===0?'<em>Main</em>':''}<div class="pv" style="background-image:url('${esc(u)}')"></div>${i>0?`<button type="button" data-imain="${i}">Make main</button>`:''}<button type="button" class="del" data-irm="${i}">Remove</button></div>`).join('')||'<p class="note" style="grid-column:1/-1">No images yet.</p>';
+}
+function openEditor(p){
+  E.id=p?p.id:null;
+  E.images=p?(Array.isArray(p.images)&&p.images.length?p.images:(p.image_url?[p.image_url]:[])).slice(0,10):[];
+  $('#pf').reset();
+  $('#edTitle').textContent=p?'Edit product':'New product';
+  if(p){
+    const set=(id,v)=>{$(id).value=v==null?'':v};
+    set('#p_title',p.title);set('#p_cat',p.category_id);set('#p_cur',p.currency||'KES');set('#p_min',p.price_min);set('#p_max',p.price_max);
+    set('#p_moq',p.moq||1);set('#p_unit',p.moq_unit||'piece');set('#p_stock',p.stock);set('#p_brand',p.brand);set('#p_model',p.model_number);
+    set('#p_lead',p.lead_time);set('#p_ship',p.shipping_info);set('#p_sup',p.supplier_name);set('#p_cn',p.supplier_country);
+    set('#p_yrs',p.years_active);set('#p_sold',p.sold_count);set('#p_desc',p.description);
+    set('#p_specs',(Array.isArray(p.specs)?p.specs:[]).map(s=>`${s.k}: ${s.v}`).join('\n'));
+    set('#p_tags',Array.isArray(p.tags)?p.tags.join(', '):'');
+    $('#p_ver').checked=!!p.verified;$('#p_feat').checked=!!p.is_featured;
+  }
+  drawImgs();admTab('edit');window.scrollTo(0,0);
+}
+async function uploadImages(files){
+  const room=10-E.images.length;
+  if(room<=0)return toast('Maximum 10 images per product');
+  const list=[...files].slice(0,room);
+  if(files.length>room)toast('Only '+room+' more image(s) allowed');
+  for(const f of list){
+    const path=`${Date.now()}-${Math.random().toString(36).slice(2,7)}-${f.name.replace(/[^\w.-]/g,'_')}`;
+    const up=await sb.storage.from('product-images').upload(path,f,{upsert:false});
+    if(up.error){toast(up.error.message);continue}
+    E.images.push(sb.storage.from('product-images').getPublicUrl(path).data.publicUrl);
+    drawImgs();
+  }
+}
+$('#p_img').onchange=async e=>{await uploadImages(e.target.files);e.target.value=''};
+$('#newProd').onclick=()=>openEditor(null);
+$('#edCancel').onclick=()=>{admTab('products');adminList()};
+$('#pf').onsubmit=async e=>{e.preventDefault();const b=$('#pgo');b.disabled=true;b.textContent='Saving...';
   try{
-    let image_url=null; const f=$('#p_img').files[0];
-    if(f){const path=`${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;const up=await sb.storage.from('product-images').upload(path,f,{ upsert: false });if(up.error)throw up.error;image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl}
-    const row={title:$('#p_title').value.trim(),description:$('#p_desc').value,category_id:+$('#p_cat').value||null,currency:$('#p_cur').value,price_min:+$('#p_min').value,price_max:$('#p_max').value?+$('#p_max').value:null,moq:+$('#p_moq').value||1,moq_unit:$('#p_unit').value,supplier_name:$('#p_sup').value,supplier_country:$('#p_cn').value,years_active:+$('#p_yrs').value||1,sold_count:+$('#p_sold').value||0,verified:$('#p_ver').checked,is_featured:$('#p_feat').checked,tags:$('#p_tags').value.split(',').map(t=>t.trim()).filter(Boolean),image_url,images:image_url?[image_url]:[]};
-    const{error}=await sb.from('products').insert(row); if(error)throw error;
-    $('#pf').reset(); toast('Published'); adminList(); loadProducts();
-  }catch(err){toast(err.message||'Could not publish')}
-  b.disabled=false;b.textContent='Publish product';
+    const specs=$('#p_specs').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const i=l.indexOf(':');return i>0?{k:l.slice(0,i).trim(),v:l.slice(i+1).trim()}:{k:l,v:''}});
+    const row={title:$('#p_title').value.trim(),description:$('#p_desc').value,category_id:+$('#p_cat').value||null,currency:$('#p_cur').value,price_min:+$('#p_min').value,price_max:$('#p_max').value?+$('#p_max').value:null,moq:+$('#p_moq').value||1,moq_unit:$('#p_unit').value,supplier_name:$('#p_sup').value,supplier_country:$('#p_cn').value,years_active:+$('#p_yrs').value||1,sold_count:+$('#p_sold').value||0,verified:$('#p_ver').checked,is_featured:$('#p_feat').checked,tags:$('#p_tags').value.split(',').map(t=>t.trim()).filter(Boolean),image_url:E.images[0]||null,images:E.images,brand:$('#p_brand').value||null,model_number:$('#p_model').value||null,lead_time:$('#p_lead').value||null,shipping_info:$('#p_ship').value||null,stock:$('#p_stock').value!==''?+$('#p_stock').value:null,specs};
+    const{error}=await(E.id?sb.from('products').update(row).eq('id',E.id):sb.from('products').insert(row));
+    if(error)throw error;
+    toast(E.id?'Product updated':'Product published');loadProducts();admTab('products');adminList();
+  }catch(err){toast(err.message||'Could not save')}
+  b.disabled=false;b.textContent='Save product';
 };
-$('#alist').onclick=async e=>{const id=e.target.dataset.del;if(!id||!confirm('Delete this product?'))return;const{error}=await sb.from('products').delete().eq('id',id);if(error)return toast(error.message);toast('Deleted');adminList();loadProducts()};
+
+/* homepage tile editor */
+function syncTile(card){const s=+card.dataset.slot;Object.assign(T[s],{label:card.querySelector('.t_label').value,subtitle:card.querySelector('.t_sub').value,query:card.querySelector('.t_q').value,product_id:card.querySelector('.t_prod').value||null})}
+function tileForm(s){
+  const t=T[s];
+  return `<div class="admcard tilecard" data-slot="${s}"><h3 style="font-size:18px;font-weight:800">Tile ${s}</h3>
+  <div class="f">
+   <label>Label<input class="t_label" value="${esc(t.label)}"></label>
+   <label>Small heading<input class="t_sub" value="${esc(t.subtitle)}"></label>
+   <label>Search keyword (used when no product is chosen)<input class="t_q" value="${esc(t.query)}"></label>
+   <label>Open a product instead (optional)<select class="t_prod"><option value="">None, search the keyword</option>${T.products.map(p=>`<option value="${esc(p.id)}" ${String(p.id)===String(t.product_id)?'selected':''}>${esc(p.title)}</option>`).join('')}</select></label>
+   <div><b style="font-size:13px">Tile image</b>
+    <div class="pv" ${t.image_url?`style="background-image:url('${esc(t.image_url)}')"`:''}>${t.image_url?'':'No image. The default icon is shown.'}</div>
+    <input class="t_file" type="file" accept="image/*">
+    ${t.image_url?`<button type="button" class="del" data-trm="${s}">Remove image</button>`:''}
+   </div>
+   <button class="btn" type="button" data-tsave="${s}">Save tile ${s}</button>
+  </div></div>`;
+}
+async function tilesAdmin(){
+  const[a,b]=await Promise.all([sb.from('featured_tiles').select('*').order('slot'),sb.from('products').select('id,title').order('title').limit(500)]);
+  [1,2].forEach(s=>{T[s]={...DEFAULT_TILES[s-1],...((a.data||[]).find(x=>x.slot===s)||{})}});
+  T.products=b.data||[];
+  $('#tilesBox').innerHTML=[1,2].map(tileForm).join('');
+}
+async function tileSave(s){
+  const card=$(`.tilecard[data-slot="${s}"]`);syncTile(card);const t=T[s];
+  const{error}=await sb.from('featured_tiles').upsert({slot:s,label:(t.label||'').trim()||DEFAULT_TILES[s-1].label,subtitle:(t.subtitle||'').trim()||'Frequently searched',query:(t.query||'').trim()||null,product_id:t.product_id||null,image_url:t.image_url||null,updated_at:new Date().toISOString()},{onConflict:'slot'});
+  if(error)return toast(error.message);
+  toast('Tile saved');await loadTiles();
+}
+$('#tilesBox').addEventListener('change',async e=>{
+  if(!e.target.classList.contains('t_file'))return;
+  const card=e.target.closest('.tilecard'),s=+card.dataset.slot,f=e.target.files[0];if(!f)return;
+  syncTile(card);
+  const path=`tiles/${s}-${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;
+  const up=await sb.storage.from('product-images').upload(path,f,{upsert:false});
+  if(up.error)return toast(up.error.message);
+  T[s].image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl;
+  card.outerHTML=tileForm(s);toast('Image uploaded. Click Save to apply.');
+});
+$('#viewAdmin').addEventListener('click',async e=>{
+  const t=e.target.closest('[data-atab],[data-edit],[data-del],[data-imain],[data-irm],[data-tsave],[data-trm]');if(!t)return;
+  if(t.dataset.atab){admTab(t.dataset.atab);if(t.dataset.atab==='products')adminList()}
+  else if(t.dataset.edit){const{data,error}=await sb.from('products').select('*').eq('id',t.dataset.edit).maybeSingle();if(error||!data)return toast(error?error.message:'Product not found');openEditor(data)}
+  else if(t.dataset.del){if(!confirm('Delete this product?'))return;const{error}=await sb.from('products').delete().eq('id',t.dataset.del);if(error)return toast(error.message);toast('Deleted');adminList();loadProducts()}
+  else if(t.dataset.imain){const[u]=E.images.splice(+t.dataset.imain,1);E.images.unshift(u);drawImgs()}
+  else if(t.dataset.irm){E.images.splice(+t.dataset.irm,1);drawImgs()}
+  else if(t.dataset.tsave){tileSave(+t.dataset.tsave)}
+  else if(t.dataset.trm){const s=+t.dataset.trm,card=$(`.tilecard[data-slot="${s}"]`);syncTile(card);T[s].image_url=null;card.outerHTML=tileForm(s);toast('Image removed. Click Save to apply.')}
+});
 
 /* ---------- cart ---------- */
 const saveCart=()=>{localStorage.setItem('sn_cart',JSON.stringify(S.cart));drawCart()};
@@ -642,7 +931,14 @@ function drawCart(){
   $('#ctot').textContent=money(S.cart.reduce((a,i)=>a+i.price*i.qty,0));
 }
 document.addEventListener('click',async e=>{
-  const t=e.target.closest('[data-add],[data-rm],[data-cat],[data-q],[data-close],[data-closed],[data-open],[data-ctry],[data-clr]'); if(!t)return;
+  const t=e.target.closest('[data-add],[data-rm],[data-cat],[data-q],[data-close],[data-closed],[data-open],[data-ctry],[data-clr],[data-view],[data-back],[data-gnav],[data-gi],[data-padd],[data-pquote]'); if(!t)return;
+  if(t.dataset.view){location.hash='#product/'+encodeURIComponent(t.dataset.view);return}
+  if(t.hasAttribute('data-back')){goStore();return}
+  if(t.dataset.gnav){PP.i=(PP.i+Number(t.dataset.gnav)+PP.imgs.length)%PP.imgs.length;drawGallery();return}
+  if(t.dataset.gi!==undefined){PP.i=+t.dataset.gi;drawGallery();return}
+  if(t.hasAttribute('data-padd')){addToCart(PP.p,Math.max(+$('#pq').value||1,PP.p.moq||1));return}
+  if(t.hasAttribute('data-pquote')){$('#r_d').value='Product: '+PP.p.title;$('#r_q').value=Math.max(+$('#pq').value||1,PP.p.moq||1);open('#rfqOv');return}
+  if((t.dataset.cat||t.dataset.q)&&location.hash.startsWith('#product/'))goStore();
   if(t.dataset.open){e.preventDefault();shut();open(t.dataset.open);return}
   if(t.dataset.add){const p=S.products.find(p=>String(p.id)===t.dataset.add);if(!p)return;const ex=S.cart.find(i=>i.id===p.id);ex?ex.qty+=p.moq||1:S.cart.push({id:p.id,title:p.title,price:+p.price_min,cur:p.currency,qty:p.moq||1,img:p.image_url||null});saveCart();toast('Added to cart')}
   if(t.dataset.rm!==undefined){S.cart.splice(+t.dataset.rm,1);saveCart()}
@@ -698,7 +994,7 @@ $('#sellF').onsubmit=async e=>{e.preventDefault();
 };
 
 /* ---------- search + misc ---------- */
-const doSearch=q=>{S.q=q.trim();S.cat=null;$$('[data-cat]').forEach(b=>b.classList.remove('on'));loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})};
+const doSearch=q=>{goStore();S.q=q.trim();S.cat=null;$$('[data-cat]').forEach(b=>b.classList.remove('on'));loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})};
 const hf=$('#hform'); if(hf)hf.onsubmit=e=>{e.preventDefault();doSearch($('#hq').value)};
 $('#hmform').onsubmit=e=>{e.preventDefault();doSearch($('#hmq').value)};
 $('#bform').onsubmit=e=>{e.preventDefault();doSearch($('#bq').value)};
@@ -708,7 +1004,7 @@ $('#rfqF').onsubmit=async e=>{e.preventDefault();if(live){const{error}=await sb.
 $$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)shut()}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show')}});
 $('#yr').textContent=new Date().getFullYear(); $('#demoBanner').hidden=!!live;
-(async()=>{await loadCats();await refreshUser();await loadProducts();drawCart();gateAdmin();if(live)sb.auth.onAuthStateChange(()=>refreshUser())})();
+(async()=>{showViews();drawTiles();await loadCats();await refreshUser();await loadProducts();await loadTiles();drawCart();route();if(live)sb.auth.onAuthStateChange(()=>refreshUser())})();
 </script>
 </body>
 </html>
