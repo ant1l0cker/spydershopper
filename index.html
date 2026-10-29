@@ -37,9 +37,11 @@ header{background:#fff;position:sticky;top:0;z-index:30;border-bottom:1px solid 
 .pill{border:1.5px solid var(--ink);border-radius:30px;padding:8px 18px;font-weight:700;white-space:nowrap}
 .pill.red{background:var(--red);border-color:var(--red);color:#fff}
 .sub{display:flex;gap:30px;height:44px;align-items:center;font-weight:600}
-.sub a{padding:11px 0;border-bottom:2px solid transparent;display:flex;align-items:center;gap:8px}
-.sub a:hover,.sub a.on{border-color:var(--red);color:var(--red)}
+.sub a,.sub button{padding:11px 0;border-bottom:2px solid transparent;display:flex;align-items:center;gap:8px}
+.sub a:hover,.sub a.on,.sub button:hover{border-color:var(--red);color:var(--red)}
 .sub .r{margin-left:auto;display:flex;gap:26px;font-weight:500;color:#444}
+/* Mobile Menu Toggle */
+.menu-btn { display:none; font-size:24px; color:var(--red); padding:4px; }
 /* hero */
 .hero{background:radial-gradient(900px 400px at 85% 0,#ffe3e3,transparent),linear-gradient(#fff4f4,#fff);position:relative;overflow:hidden;padding:44px 0 54px;text-align:center}
 .hero .webbg{position:absolute;right:-120px;top:-120px;width:620px;height:620px;opacity:.09;color:var(--red);pointer-events:none}
@@ -116,7 +118,7 @@ footer p{max-width:340px;margin-top:10px}
 .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--red);outline:0}
 .f .full{grid-column:1/-1}
 .f .btn{height:46px}
-.note{color:var(--mut);font-size:13px;margin-top:12px}
+.note{color:var(--mut);font-size:13px;margin-top:12px;line-height:1.6}
 .alt{color:var(--red);font-weight:700}
 .arow{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
 .arow img,.arow .t{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#f3f3f5;display:grid;place-items:center;color:#b5b5be;flex:none}
@@ -129,6 +131,13 @@ footer p{max-width:340px;margin-top:10px}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(90px);background:#17171a;color:#fff;padding:12px 22px;border-radius:30px;font-weight:600;z-index:90;transition:transform .25s;text-align:center;width:max-content;max-width:90%}
 .toast.show{transform:translateX(-50%)}
 .banner{background:#fff3cd;color:#664d03;text-align:center;padding:8px;font-weight:600;font-size:13px}
+
+/* Mobile Dropdown Menu */
+.mobile-menu { display:none; background:#fff; border-top:1px solid var(--line); padding:10px 0; }
+.mobile-menu.show { display:block; }
+.mobile-menu a { display:block; padding:12px 24px; font-weight:600; border-bottom:1px solid var(--line); color:var(--ink); }
+.mobile-menu a:active { background:var(--bg); }
+
 /* Mobile adjustments */
 @media(max-width:1024px){
   .zone{grid-template-columns:1fr 1fr}
@@ -141,6 +150,7 @@ footer p{max-width:340px;margin-top:10px}
   .logo{font-size:20px}
   .logo svg{width:32px;height:32px}
   
+  .menu-btn { display:block; order:-1; } 
   .hsearch{display:none} 
   
   .hr{margin-left:auto;gap:12px}
@@ -217,9 +227,9 @@ footer p{max-width:340px;margin-top:10px}
 <header>
  <div class="wrap">
   <div class="hrow">
+   <button class="menu-btn" id="menuBtn" aria-label="Menu"><svg class="ico"><use href="#i-menu"/></svg></button>
    <a class="logo" href="#" aria-label="SPYDERSHOPPER home"><svg><use href="#logo"/></svg>SPYDERSHOPPER</a>
    
-   <!-- Mobile Search Bar (hidden on desktop) -->
    <form class="hsearch mob-search" id="hmform" style="display:none;"><input id="hmq" placeholder="Search products" aria-label="Search"><button class="btn">Search</button></form>
 
    <div class="hr">
@@ -231,16 +241,28 @@ footer p{max-width:340px;margin-top:10px}
    </div>
   </div>
   <nav class="sub">
-   <a href="#cats" class="on"><svg class="ico"><use href="#i-menu"/></svg>All categories</a><a href="#top">Verified manufacturers</a>
-   <div class="r"><a href="#">About SPYDERSHOPPER</a><a href="#">Help Center</a><a href="#">Sell on SPYDERSHOPPER</a></div>
+   <button id="desktopCatBtn" class="on"><svg class="ico"><use href="#i-menu"/></svg>All categories</button>
+   <a href="#top">Verified manufacturers</a>
+   <div class="r">
+     <button class="info-link" data-info="about">About SPYDERSHOPPER</button>
+     <button class="info-link" data-info="help">Help Center</button>
+     <button class="info-link" data-info="sell">Sell on SPYDERSHOPPER</button>
+   </div>
   </nav>
+ </div>
+ <div class="mobile-menu" id="mobileMenu">
+    <div id="mobCatList"></div>
  </div>
 </header>
 
 <section class="hero" id="top">
  <svg class="webbg" style="color:#d4001f"><use href="#web"/></svg><svg class="webbg l" style="color:#d4001f"><use href="#web"/></svg>
  <div class="wrap">
-  <div class="tabs"><button class="on">Products</button><button>Manufacturers</button><button>Worldwide</button></div>
+  <div class="tabs" id="heroTabs">
+    <button data-tab="products" class="on">Products</button>
+    <button data-tab="manufacturers">Manufacturers</button>
+    <button data-tab="worldwide">Worldwide</button>
+  </div>
   <form class="sbox" id="bform">
    <input id="bq" placeholder="What are you sourcing today?" aria-label="Search products">
    <div class="row"><span><svg class="ico"><use href="#i-camera"/></svg>Image Search</span><span style="color:#ccc">|</span><span><svg class="ico"><use href="#i-file"/></svg>Search with File</span><button class="btn"><svg class="ico"><use href="#i-search"/></svg>Search</button></div>
@@ -282,6 +304,13 @@ footer p{max-width:340px;margin-top:10px}
   <button class="btn" id="authGo">Sign in</button>
  </form>
  <p class="note"><span id="authAsk">No account?</span> <button class="alt" id="authSw" type="button">Create account</button></p>
+</div></div>
+
+<!-- Info Modal -->
+<div class="ov" id="infoOv"><div class="md">
+ <button class="x" data-close aria-label="Close">&times;</button>
+ <h3 id="infoT">Info</h3>
+ <p class="note" id="infoC"></p>
 </div></div>
 
 <!-- Admin -->
@@ -353,7 +382,11 @@ const open = id => $(id).classList.add('show'), shut = () => $$('.ov').forEach(o
 /* ---------- data ---------- */
 async function loadCats(){
   if(live){const{data}=await sb.from('categories').select('*').order('sort_order');S.cats=data||[]}else S.cats=DEMO_CATS;
-  $('#catList').innerHTML = S.cats.map(c=>`<button data-cat="${esc(c.slug)}">${esc(c.name)}<svg class="ico ar"><use href="#i-chev"/></svg></button>`).join('');
+  
+  const catHtml = S.cats.map(c=>`<button data-cat="${esc(c.slug)}">${esc(c.name)}<svg class="ico ar"><use href="#i-chev"/></svg></button>`).join('');
+  $('#catList').innerHTML = catHtml;
+  $('#mobCatList').innerHTML = catHtml;
+  
   $('#p_cat').innerHTML = S.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
   $('#chips').innerHTML = ['sunglasses','laptop','earbuds','smart watch','sneakers','solar','phone case'].map(t=>`<button data-q="${t}">${t}</button>`).join('');
 }
@@ -384,7 +417,6 @@ async function refreshUser(){
   if(S.user){const{data}=await sb.from('profiles').select('role').eq('id',S.user.id).maybeSingle();S.admin=data?.role==='admin'}
   $('#signTxt').textContent = S.user?'Sign out':'Sign in'; $('#joinBtn').hidden=!!S.user; 
   
-  // Admin logic for hash URL
   if(window.location.hash === '#admin') {
     if(S.admin) {
       open('#admOv');
@@ -478,13 +510,60 @@ function drawCart(){
   $('#ctot').textContent=money(S.cart.reduce((a,i)=>a+i.price*i.qty,0));
 }
 document.addEventListener('click',async e=>{
-  const t=e.target.closest('[data-add],[data-rm],[data-cat],[data-q],[data-close],[data-closed]'); if(!t)return;
+  const t=e.target.closest('[data-add],[data-rm],[data-cat],[data-q],[data-close],[data-closed],.info-link,[data-tab]'); if(!t)return;
+  
   if(t.dataset.add){const p=S.products.find(p=>String(p.id)===t.dataset.add);if(!p)return;const ex=S.cart.find(i=>i.id===p.id);ex?ex.qty+=p.moq||1:S.cart.push({id:p.id,title:p.title,price:+p.price_min,cur:p.currency,qty:p.moq||1,img:p.image_url||null});saveCart();toast('Added to cart')}
   if(t.dataset.rm!==undefined){S.cart.splice(+t.dataset.rm,1);saveCart()}
-  if(t.dataset.cat){S.cat=t.dataset.cat;S.q='';$$('[data-cat]').forEach(b=>b.classList.toggle('on',b===t));loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})}
+  
+  if(t.dataset.cat){
+    S.cat=t.dataset.cat;S.q='';
+    $$('[data-cat]').forEach(b=>b.classList.toggle('on',b===t));
+    loadProducts();
+    $('#gt').scrollIntoView({behavior:'smooth'});
+    $('#mobileMenu').classList.remove('show'); // Close mobile menu on selection
+  }
   if(t.dataset.q){S.q=t.dataset.q;S.cat=null;$('#bq').value=S.q;loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})}
-  if(t.hasAttribute('data-close'))shut(); if(t.hasAttribute('data-closed'))$('#drawer').classList.remove('show');
+  
+  if(t.hasAttribute('data-close'))shut(); 
+  if(t.hasAttribute('data-closed'))$('#drawer').classList.remove('show');
+  
+  if(t.classList.contains('info-link')){
+    const type = t.dataset.info;
+    if(type === 'about') {
+      $('#infoT').textContent = 'About SPYDERSHOPPER';
+      $('#infoC').innerHTML = 'SPYDERSHOPPER is a premium B2B wholesale marketplace connecting global suppliers directly with retailers in Kenya and across Africa. We ensure verified manufacturers, competitive factory pricing, and reliable shipping.';
+    } else if (type === 'help') {
+      $('#infoT').textContent = 'Help Center';
+      $('#infoC').innerHTML = 'Need assistance?<br><br>📧 Email us: <b>support@spydershopper.work.gd</b><br>📞 Call us: <b>+254 700 000 000</b><br><br>Our support team operates Monday to Friday, 8:00 AM - 6:00 PM EAT.';
+    } else if (type === 'sell') {
+      $('#infoT').textContent = 'Sell on SPYDERSHOPPER';
+      $('#infoC').innerHTML = 'Ready to reach thousands of buyers? Join our platform as a verified supplier.<br><br>Click below to start your seller application. (Feature coming soon)';
+    }
+    open('#infoOv');
+  }
+  
+  if(t.dataset.tab){
+    $$('#heroTabs button').forEach(b=>b.classList.remove('on'));
+    t.classList.add('on');
+    if(t.dataset.tab === 'manufacturers'){
+      toast('Manufacturer directory launching soon!');
+    } else if(t.dataset.tab === 'worldwide'){
+      toast('Global sourcing mode coming soon!');
+    }
+  }
 });
+
+// Mobile Menu Toggle
+$('#menuBtn').onclick = () => {
+  $('#mobileMenu').classList.toggle('show');
+};
+$('#desktopCatBtn').onclick = () => {
+  S.q='';S.cat=null;
+  $$('[data-cat]').forEach(b=>b.classList.remove('on'));
+  loadProducts();
+  $('#gt').scrollIntoView({behavior:'smooth'});
+};
+
 $('#cartBtn').onclick=()=>{drawCart();$('#drawer').classList.add('show')};
 $('#coF').onsubmit=async e=>{e.preventDefault(); if(!S.cart.length)return toast('Cart is empty'); if(!live)return toast('Demo mode: connect Supabase to place orders'); if(!S.user){$('#drawer').classList.remove('show');authMode(false);return open('#authOv')}
   await sb.from('cart_items').delete().eq('user_id',S.user.id);
@@ -502,10 +581,9 @@ $('#shopAll').onclick=()=>{S.q='';S.cat=null;loadProducts();$('#gt').scrollIntoV
 $('#rfq').onclick=()=>open('#rfqOv');
 $('#rfqF').onsubmit=async e=>{e.preventDefault();if(live){const{error}=await sb.from('quote_requests').insert({name:$('#r_n').value,contact:$('#r_c').value,details:$('#r_d').value,quantity:+$('#r_q').value||null});if(error)return toast(error.message)}shut();$('#rfqF').reset();toast('Request sent')};
 $$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)shut()}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show');$('#mobileMenu').classList.remove('show')}});
 $('#yr').textContent=new Date().getFullYear(); $('#demoBanner').hidden=!!live;
 
-// Listen for hash changes to trigger admin
 window.addEventListener('hashchange', () => {
   if(window.location.hash === '#admin' && S.admin) {
     open('#admOv');
