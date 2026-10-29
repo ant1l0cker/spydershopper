@@ -137,18 +137,34 @@ footer p{max-width:340px;margin-top:10px}
 }
 @media(max-width:768px){
   .wrap{padding:0 16px}
-  .hsearch{display:none}
-  .hr{gap:12px}
-  .hr .it:not(#adminBtn):not(#signBtn){display:none}
-  .hrow{justify-content:space-between;height:64px}
+  .hrow{flex-wrap:wrap;height:auto;padding:12px 0;gap:12px}
   .logo{font-size:20px}
   .logo svg{width:32px;height:32px}
-  .tabs{gap:16px;font-size:18px}
+  
+  /* Hide search in top row */
+  .hsearch{display:none} 
+  
+  /* Distribute buttons evenly */
+  .hr{margin-left:auto;gap:12px}
+  .hr .it:not(#adminBtn):not(#signBtn){display:none} /* hide location/globe */
+  
+  /* Search bar moves below */
+  .mob-search { display:flex !important; margin-bottom:12px; width:100%; order:3; }
+  
+  .sub{overflow-x:auto;white-space:nowrap;height:44px;gap:20px}
+  .sub::-webkit-scrollbar{display:none}
+  .sub .r{display:none}
+  
+  .tabs{gap:0;font-size:18px;flex-wrap:wrap;justify-content:space-between}
+  .tabs button{width:50%;padding:10px 0;text-align:center}
+  .tabs button:nth-child(1),.tabs button:nth-child(2){border-bottom:1px solid var(--line)}
+  
   .sbox{padding:12px}
   .sbox input{font-size:15px;padding-bottom:12px}
   .sbox .row{gap:8px}
   .sbox .row .btn{width:100%;margin-left:0;margin-top:10px}
   .sbox .row span{font-size:12px}
+  
   .strip .wrap{height:auto;padding:12px 16px;overflow-x:auto;gap:20px;white-space:nowrap;font-size:13px}
   .strip h2{display:none}
   .zone{grid-template-columns:1fr;margin-top:12px}
@@ -165,6 +181,7 @@ footer p{max-width:340px;margin-top:10px}
   .pill{padding:6px 12px;font-size:12px}
   .hr{gap:8px}
   .hr .it{font-size:13px}
+  .cartb{font-size:20px}
   .grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .card .ph svg{width:40px;height:40px}
   .card .bd{padding:8px}
@@ -204,7 +221,10 @@ footer p{max-width:340px;margin-top:10px}
  <div class="wrap">
   <div class="hrow">
    <a class="logo" href="#" aria-label="SPYDERSHOPPER home"><svg><use href="#logo"/></svg>SPYDERSHOPPER</a>
-   <form class="hsearch" id="hform"><input id="hq" placeholder="Search products" aria-label="Search"><button class="btn">Search</button></form>
+   
+   <!-- Mobile Search Bar (hidden on desktop) -->
+   <form class="hsearch mob-search" id="hmform" style="display:none;"><input id="hmq" placeholder="Search products" aria-label="Search"><button class="btn">Search</button></form>
+
    <div class="hr">
     <div class="it"><svg class="ico"><use href="#i-pin"/></svg><div><small>Deliver to</small>KE</div></div>
     <div class="it"><svg class="ico"><use href="#i-globe"/></svg>English-KES</div>
@@ -470,6 +490,7 @@ $('#coF').onsubmit=async e=>{e.preventDefault(); if(!S.cart.length)return toast(
 /* ---------- search + misc ---------- */
 const doSearch=q=>{S.q=q.trim();S.cat=null;$$('[data-cat]').forEach(b=>b.classList.remove('on'));loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})};
 $('#hform').onsubmit=e=>{e.preventDefault();doSearch($('#hq').value)};
+$('#hmform').onsubmit=e=>{e.preventDefault();doSearch($('#hmq').value)};
 $('#bform').onsubmit=e=>{e.preventDefault();doSearch($('#bq').value)};
 $('#shopAll').onclick=()=>{S.q='';S.cat=null;loadProducts();$('#gt').scrollIntoView({behavior:'smooth'})};
 $('#rfq').onclick=()=>open('#rfqOv');
