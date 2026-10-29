@@ -287,6 +287,19 @@ footer p{max-width:340px;margin-top:10px}
 [data-theme=dark] .edit,[data-theme=dark] .imgm .it2 button:not(.del){color:#6ea8fe}
 [data-theme=dark] .pprice{color:var(--red-l)}
 [data-theme=dark] .qrow input{color:var(--ink)}
+button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.prow .acts button{padding:12px 16px;min-height:44px;border-radius:10px}
+.prow .acts .edit{background:rgba(11,94,215,.1)}
+.prow .acts .del{background:rgba(212,0,31,.08)}
+.imgm .it2 button{padding:8px 4px;min-height:36px}
+.admtabs button,.admhead .btn,.admhead .alt{min-height:44px}
+/* tile cropper */
+.fs .im.has{height:auto;aspect-ratio:4/5}
+.tilecard .pv{height:auto;aspect-ratio:4/5;max-width:220px}
+.cropwrap{display:flex;justify-content:center;margin-top:12px;background:#111;border-radius:12px;padding:8px}
+.cropstage{position:relative;display:inline-block;line-height:0;touch-action:none;user-select:none;overflow:hidden}
+.cropstage img{max-width:min(520px,calc(100vw - 110px));max-height:55vh;display:block;-webkit-user-drag:none}
+.cropbox{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.55);cursor:move;touch-action:none}
 [hidden]{display:none!important}
 /* ===== Dark mode ===== */
 [data-theme=dark] .hsearch input,[data-theme=dark] .sbox input{background:transparent;color:var(--ink)}
@@ -547,6 +560,17 @@ footer p{max-width:340px;margin-top:10px}
   <label>Details<textarea id="c_d" rows="3" required></textarea></label>
   <button class="btn">Send customization request</button>
  </form>
+</div></div>
+
+<!-- Tile image cropper -->
+<div class="ov" id="cropOv"><div class="md" style="max-width:600px">
+ <button class="x" data-close aria-label="Close">&times;</button>
+ <h3>Crop tile image</h3><p class="note">Drag the box to choose the part that will show. Use the slider to zoom in or out.</p>
+ <div class="cropwrap"><div class="cropstage"><img id="cropImg" alt=""><div class="cropbox" id="cropBox"></div></div></div>
+ <div class="f">
+  <label>Size<input id="cropZoom" type="range" min="20" max="100" value="100"></label>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="button" id="cropOk">Use this crop</button><button class="btn ghost" type="button" id="cropFit">Fit whole image</button></div>
+ </div>
 </div></div>
 
 <!-- Cart -->
@@ -815,11 +839,14 @@ function gateAdmin(){
 }
 $('#admGateBtn').onclick=()=>{authMode(false);open('#authOv')};
 $('#admOut').onclick=()=>$('#signBtn').click();
+const A={rows:new Map()};
 async function adminList(){
-  const{data,error}=await sb.from('products').select('id,title,image_url,images,price_min,currency,category_id').order('created_at',{ascending:false}).limit(300);
-  if(error)return toast(error.message);
+  const box=$('#alist');
+  const{data,error}=await sb.from('products').select('*').order('created_at',{ascending:false}).limit(300);
+  if(error){box.innerHTML=`<p class="note">Could not load products: ${esc(error.message)} <button class="alt" type="button" data-retry>Retry</button></p>`;return}
+  A.rows=new Map((data||[]).map(p=>[String(p.id),p]));
   const cn=id=>(S.cats.find(c=>String(c.id)===String(id))||{}).name||'No category';
-  $('#alist').innerHTML=(data||[]).map(p=>{
+  box.innerHTML=(data||[]).map(p=>{
     const n=(Array.isArray(p.images)&&p.images.length)||(p.image_url?1:0);
     return `<div class="prow"><div class="th" ${p.image_url?`style="background-image:url('${esc(p.image_url)}')"`:''}>${p.image_url?'':ICON_BOX}</div><div class="tx"><b>${esc(p.title)}</b><span>${money(p.price_min,p.currency)} &middot; ${esc(cn(p.category_id))} &middot; ${n} image${n==1?'':'s'}</span></div><div class="acts"><button class="edit" type="button" data-edit="${esc(p.id)}">Edit</button><button class="del" type="button" data-del="${esc(p.id)}">Delete</button></div></div>`;
   }).join('')||'<p class="note">No products yet. Click New product to add one.</p>';
@@ -902,26 +929,71 @@ async function tileSave(s){
   if(error)return toast(error.message);
   toast('Tile saved');await loadTiles();
 }
-$('#tilesBox').addEventListener('change',async e=>{
+/* tile image cropper: pick the part of the picture that shows on the tile */
+const CR={slot:0,url:null,AR:0.8,x:0,y:0,bw:0,bh:0,dw:0,dh:0,bw0:0};
+function cropPlace(){const b=$('#cropBox');b.style.left=CR.x+'px';b.style.top=CR.y+'px';b.style.width=CR.bw+'px';b.style.height=CR.bh+'px'}
+function cropSize(z){
+  const cx=CR.x+CR.bw/2,cy=CR.y+CR.bh/2;
+  CR.bw=CR.bw0*z/100;CR.bh=CR.bw/CR.AR;
+  CR.x=Math.min(Math.max(cx-CR.bw/2,0),CR.dw-CR.bw);CR.y=Math.min(Math.max(cy-CR.bh/2,0),CR.dh-CR.bh);
+  cropPlace();
+}
+function openCropper(file,slot){
+  CR.slot=slot;if(CR.url)URL.revokeObjectURL(CR.url);CR.url=URL.createObjectURL(file);
+  const img=$('#cropImg');
+  img.onload=()=>{
+    CR.dw=img.clientWidth;CR.dh=img.clientHeight;
+    CR.bw0=Math.min(CR.dw,CR.dh*CR.AR);CR.bw=CR.bw0;CR.bh=CR.bw/CR.AR;
+    CR.x=(CR.dw-CR.bw)/2;CR.y=(CR.dh-CR.bh)/2;$('#cropZoom').value=100;cropPlace();
+  };
+  img.src=CR.url;open('#cropOv');
+}
+(function(){
+  const box=$('#cropBox');let d=null;
+  box.addEventListener('pointerdown',e=>{d={px:e.clientX,py:e.clientY,x:CR.x,y:CR.y};box.setPointerCapture(e.pointerId);e.preventDefault()});
+  box.addEventListener('pointermove',e=>{if(!d)return;CR.x=Math.min(Math.max(d.x+e.clientX-d.px,0),CR.dw-CR.bw);CR.y=Math.min(Math.max(d.y+e.clientY-d.py,0),CR.dh-CR.bh);cropPlace()});
+  const end=()=>{d=null};box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);
+})();
+$('#cropZoom').oninput=e=>cropSize(+e.target.value);
+function cropExport(fit){
+  const img=$('#cropImg'),W=800,H=1000,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+  if(fit){const k=Math.min(W/img.naturalWidth,H/img.naturalHeight),w=img.naturalWidth*k,h=img.naturalHeight*k;g.drawImage(img,(W-w)/2,(H-h)/2,w,h)}
+  else{const k=img.naturalWidth/CR.dw;g.drawImage(img,CR.x*k,CR.y*k,CR.bw*k,CR.bh*k,0,0,W,H)}
+  return new Promise(r=>c.toBlob(r,fit?'image/png':'image/webp',0.92));
+}
+async function cropSave(fit){
+  const btns=[$('#cropOk'),$('#cropFit')];btns.forEach(b=>b.disabled=true);
+  try{
+    const blob=await cropExport(fit);if(!blob)return toast('Could not process the image');
+    const ext=(blob.type.split('/')[1]||'png').replace('jpeg','jpg');
+    const s=CR.slot,path=`tiles/${s}-${Date.now()}.${ext}`;
+    const up=await sb.storage.from('product-images').upload(path,blob,{upsert:false,contentType:blob.type});
+    if(up.error)return toast(up.error.message);
+    T[s].image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl;
+    shut();const card=$(`.tilecard[data-slot="${s}"]`);if(card)card.outerHTML=tileForm(s);
+    toast('Image ready. Click Save tile to apply.');
+  }catch(err){toast(err.message||'Could not process the image')}
+  finally{btns.forEach(b=>b.disabled=false)}
+}
+$('#cropOk').onclick=()=>cropSave(false);
+$('#cropFit').onclick=()=>cropSave(true);
+$('#tilesBox').addEventListener('change',e=>{
   if(!e.target.classList.contains('t_file'))return;
-  const card=e.target.closest('.tilecard'),s=+card.dataset.slot,f=e.target.files[0];if(!f)return;
-  syncTile(card);
-  const path=`tiles/${s}-${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;
-  const up=await sb.storage.from('product-images').upload(path,f,{upsert:false});
-  if(up.error)return toast(up.error.message);
-  T[s].image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl;
-  card.outerHTML=tileForm(s);toast('Image uploaded. Click Save to apply.');
+  const card=e.target.closest('.tilecard'),f=e.target.files[0];if(!f)return;
+  syncTile(card);openCropper(f,+card.dataset.slot);e.target.value='';
 });
-$('#viewAdmin').addEventListener('click',async e=>{
-  const t=e.target.closest('[data-atab],[data-edit],[data-del],[data-imain],[data-irm],[data-tsave],[data-trm]');if(!t)return;
+$('#viewAdmin').addEventListener('click',e=>adminClick(e).catch(err=>toast(err.message||'Something went wrong')));
+async function adminClick(e){
+  const t=e.target.closest('[data-atab],[data-edit],[data-del],[data-imain],[data-irm],[data-tsave],[data-trm],[data-retry]');if(!t)return;
   if(t.dataset.atab){admTab(t.dataset.atab);if(t.dataset.atab==='products')adminList()}
-  else if(t.dataset.edit){const{data,error}=await sb.from('products').select('*').eq('id',t.dataset.edit).maybeSingle();if(error||!data)return toast(error?error.message:'Product not found');openEditor(data)}
+  else if(t.dataset.edit){let row=A.rows.get(String(t.dataset.edit));if(!row){const r=await sb.from('products').select('*').eq('id',t.dataset.edit).maybeSingle();if(r.error||!r.data)return toast(r.error?r.error.message:'Product not found');row=r.data}openEditor(row)}
+  else if(t.hasAttribute('data-retry')){adminList()}
   else if(t.dataset.del){if(!confirm('Delete this product?'))return;const{error}=await sb.from('products').delete().eq('id',t.dataset.del);if(error)return toast(error.message);toast('Deleted');adminList();loadProducts()}
   else if(t.dataset.imain){const[u]=E.images.splice(+t.dataset.imain,1);E.images.unshift(u);drawImgs()}
   else if(t.dataset.irm){E.images.splice(+t.dataset.irm,1);drawImgs()}
   else if(t.dataset.tsave){tileSave(+t.dataset.tsave)}
   else if(t.dataset.trm){const s=+t.dataset.trm,card=$(`.tilecard[data-slot="${s}"]`);syncTile(card);T[s].image_url=null;card.outerHTML=tileForm(s);toast('Image removed. Click Save to apply.')}
-});
+}
 
 /* ---------- cart ---------- */
 const saveCart=()=>{localStorage.setItem('sn_cart',JSON.stringify(S.cart));drawCart()};
@@ -1004,7 +1076,7 @@ $('#rfqF').onsubmit=async e=>{e.preventDefault();if(live){const{error}=await sb.
 $$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)shut()}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show')}});
 $('#yr').textContent=new Date().getFullYear(); $('#demoBanner').hidden=!!live;
-(async()=>{showViews();drawTiles();await loadCats();await refreshUser();await loadProducts();await loadTiles();drawCart();route();if(live)sb.auth.onAuthStateChange(()=>refreshUser())})();
+(async()=>{showViews();drawTiles();await loadCats();await refreshUser();await loadProducts();await loadTiles();drawCart();route();if(live)sb.auth.onAuthStateChange(()=>{setTimeout(refreshUser,0)})})();
 </script>
 </body>
 </html>
