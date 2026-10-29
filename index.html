@@ -346,7 +346,7 @@ $('#adminBtn').onclick=()=>{open('#admOv');adminList()};
 $('#pf').onsubmit=async e=>{e.preventDefault(); const b=$('#pgo');b.disabled=true;b.textContent='Publishing…';
   try{
     let image_url=null; const f=$('#p_img').files[0];
-    if(f){const path=`${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;const up=await sb.storage.from('product-images').upload(path,f);if(up.error)throw up.error;image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl}
+    if(f){const path=`${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;const up=await sb.storage.from('product-images').upload(path,f,{ upsert: false });if(up.error)throw up.error;image_url=sb.storage.from('product-images').getPublicUrl(path).data.publicUrl}
     const row={title:$('#p_title').value.trim(),description:$('#p_desc').value,category_id:+$('#p_cat').value||null,currency:$('#p_cur').value,price_min:+$('#p_min').value,price_max:$('#p_max').value?+$('#p_max').value:null,moq:+$('#p_moq').value||1,moq_unit:$('#p_unit').value,supplier_name:$('#p_sup').value,supplier_country:$('#p_cn').value,years_active:+$('#p_yrs').value||1,sold_count:+$('#p_sold').value||0,verified:$('#p_ver').checked,is_featured:$('#p_feat').checked,tags:$('#p_tags').value.split(',').map(t=>t.trim()).filter(Boolean),image_url,images:image_url?[image_url]:[]};
     const{error}=await sb.from('products').insert(row); if(error)throw error;
     $('#pf').reset(); toast('Published'); adminList(); loadProducts();
