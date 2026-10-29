@@ -141,14 +141,11 @@ footer p{max-width:340px;margin-top:10px}
   .logo{font-size:20px}
   .logo svg{width:32px;height:32px}
   
-  /* Hide search in top row */
   .hsearch{display:none} 
   
-  /* Distribute buttons evenly */
   .hr{margin-left:auto;gap:12px}
-  .hr .it:not(#adminBtn):not(#signBtn){display:none} /* hide location/globe */
+  .hr .it:not(#signBtn){display:none} 
   
-  /* Search bar moves below */
   .mob-search { display:flex !important; margin-bottom:12px; width:100%; order:3; }
   
   .sub{overflow-x:auto;white-space:nowrap;height:44px;gap:20px}
@@ -229,13 +226,12 @@ footer p{max-width:340px;margin-top:10px}
     <div class="it"><svg class="ico"><use href="#i-pin"/></svg><div><small>Deliver to</small>KE</div></div>
     <div class="it"><svg class="ico"><use href="#i-globe"/></svg>English-KES</div>
     <button class="cartb" id="cartBtn" aria-label="Cart"><svg class="ico"><use href="#i-cart"/></svg><b id="cc">0</b></button>
-    <button class="it" id="adminBtn" hidden style="color:var(--red)"><svg class="ico"><use href="#i-gear"/></svg>Admin</button>
     <button class="it" id="signBtn"><svg class="ico"><use href="#i-user"/></svg><span id="signTxt">Sign in</span></button>
     <button class="pill red" id="joinBtn">Create account</button>
    </div>
   </div>
   <nav class="sub">
-   <a href="#cats" class="on"><svg class="ico"><use href="#i-menu"/></svg>All categories</a><a href="#top">Verified manufacturers</a><a href="#top">Dropshipping</a>
+   <a href="#cats" class="on"><svg class="ico"><use href="#i-menu"/></svg>All categories</a><a href="#top">Verified manufacturers</a>
    <div class="r"><a href="#">About SPYDERSHOPPER</a><a href="#">Help Center</a><a href="#">Sell on SPYDERSHOPPER</a></div>
   </nav>
  </div>
@@ -244,7 +240,7 @@ footer p{max-width:340px;margin-top:10px}
 <section class="hero" id="top">
  <svg class="webbg" style="color:#d4001f"><use href="#web"/></svg><svg class="webbg l" style="color:#d4001f"><use href="#web"/></svg>
  <div class="wrap">
-  <div class="tabs"><button>AI Mode</button><button class="on">Products</button><button>Manufacturers</button><button>Worldwide</button></div>
+  <div class="tabs"><button class="on">Products</button><button>Manufacturers</button><button>Worldwide</button></div>
   <form class="sbox" id="bform">
    <input id="bq" placeholder="What are you sourcing today?" aria-label="Search products">
    <div class="row"><span><svg class="ico"><use href="#i-camera"/></svg>Image Search</span><span style="color:#ccc">|</span><span><svg class="ico"><use href="#i-file"/></svg>Search with File</span><button class="btn"><svg class="ico"><use href="#i-search"/></svg>Search</button></div>
@@ -386,8 +382,20 @@ async function refreshUser(){
   if(!live)return;
   const{data:{session}}=await sb.auth.getSession(); S.user=session?.user||null; S.admin=false;
   if(S.user){const{data}=await sb.from('profiles').select('role').eq('id',S.user.id).maybeSingle();S.admin=data?.role==='admin'}
-  $('#signTxt').textContent = S.user?'Sign out':'Sign in'; $('#joinBtn').hidden=!!S.user; $('#adminBtn').hidden=!S.admin;
+  $('#signTxt').textContent = S.user?'Sign out':'Sign in'; $('#joinBtn').hidden=!!S.user; 
+  
+  // Admin logic for hash URL
+  if(window.location.hash === '#admin') {
+    if(S.admin) {
+      open('#admOv');
+      adminList();
+    } else {
+      toast('You must be an admin to view this page');
+      window.location.hash = '';
+    }
+  }
 }
+
 function authMode(su){S.signup=su;$('#authT').textContent=su?'Create account':'Sign in';$('#authS').textContent=su?'Join SPYDERSHOPPER to order and track shipments.':'Welcome back to SPYDERSHOPPER.';$('#nameL').hidden=!su;$('#authGo').textContent=su?'Create account':'Sign in';$('#authAsk').textContent=su?'Already registered?':'No account?';$('#authSw').textContent=su?'Sign in':'Create account'}
 $('#authSw').onclick=()=>authMode(!S.signup);
 
@@ -396,7 +404,6 @@ $('#signBtn').onclick=async()=>{
     S.user=null; S.admin=false;
     $('#signTxt').textContent='Sign in'; 
     $('#joinBtn').hidden=false; 
-    $('#adminBtn').hidden=true;
     await sb.auth.signOut();
     toast('Signed out');
   } else {
@@ -451,7 +458,6 @@ async function adminList(){
   const{data}=await sb.from('products').select('id,title,image_url,price_min,currency').order('created_at',{ascending:false}).limit(50);
   $('#alist').innerHTML=(data||[]).map(p=>`<div class="arow">${p.image_url?`<img src="${esc(p.image_url)}" alt="">`:`<div class="t">${ICON_BOX}</div>`}<b>${esc(p.title)}</b><span>${money(p.price_min,p.currency)}</span><button class="del" data-del="${p.id}">Delete</button></div>`).join('')||'<p class="note">No products yet.</p>';
 }
-$('#adminBtn').onclick=()=>{open('#admOv');adminList()};
 $('#pf').onsubmit=async e=>{e.preventDefault(); const b=$('#pgo');b.disabled=true;b.textContent='Publishing…';
   try{
     let image_url=null; const f=$('#p_img').files[0];
@@ -498,7 +504,22 @@ $('#rfqF').onsubmit=async e=>{e.preventDefault();if(live){const{error}=await sb.
 $$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)shut()}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show')}});
 $('#yr').textContent=new Date().getFullYear(); $('#demoBanner').hidden=!!live;
-(async()=>{await loadCats();await refreshUser();await loadProducts();drawCart();if(live)sb.auth.onAuthStateChange(()=>refreshUser())})();
+
+// Listen for hash changes to trigger admin
+window.addEventListener('hashchange', () => {
+  if(window.location.hash === '#admin' && S.admin) {
+    open('#admOv');
+    adminList();
+  }
+});
+
+(async()=>{
+  await loadCats();
+  await refreshUser();
+  await loadProducts();
+  drawCart();
+  if(live) sb.auth.onAuthStateChange(()=>refreshUser());
+})();
 </script>
 </body>
 </html>
