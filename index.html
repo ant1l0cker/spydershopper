@@ -124,9 +124,9 @@ footer p{max-width:340px;margin-top:10px}
 .arow .t svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 .arow b{flex:1;font-weight:600}
 .del{color:var(--red);font-weight:700}
-.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;z-index:60;transform:translateX(100%);transition:transform .25s;padding:24px;display:flex;flex-direction:column}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;z-index:60;transform:translateX(100%);transition:transform .25s;padding:24px;display:flex;flex-direction:column;overflow-y:auto}
 .drawer.show{transform:none;box-shadow:-20px 0 50px rgba(0,0,0,.25)}
-.drawer .list{flex:1;overflow:auto;margin:12px 0}
+.drawer .list{flex:none;max-height:32vh;min-height:60px;overflow:auto;margin:12px 0}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(90px);background:#17171a;color:#fff;padding:12px 22px;border-radius:30px;font-weight:600;z-index:90;transition:transform .25s;text-align:center;width:max-content;max-width:90%}
 .toast.show{transform:translateX(-50%)}
 .banner{background:#fff3cd;color:#664d03;text-align:center;padding:8px;font-weight:600;font-size:13px}
@@ -141,31 +141,21 @@ footer p{max-width:340px;margin-top:10px}
   .hrow{flex-wrap:wrap;height:auto;padding:12px 0;gap:12px}
   .logo{font-size:20px}
   .logo svg{width:32px;height:32px}
-  
-  /* Hide search in top row */
   .hsearch{display:none} 
-  
-  /* Distribute buttons evenly */
   .hr{margin-left:auto;gap:12px}
-  .hr .it:not(#adminBtn):not(#signBtn){display:none} /* hide location/globe */
-  
-  /* Search bar moves below */
+  .hr .it:not(#adminBtn):not(#signBtn){display:none}
   .mob-search { display:flex !important; margin-bottom:12px; width:100%; order:3; }
-  
   .sub{overflow-x:auto;white-space:nowrap;height:44px;gap:20px}
   .sub::-webkit-scrollbar{display:none}
   .sub .r{display:none}
-  
   .tabs{gap:0;font-size:18px;flex-wrap:wrap;justify-content:space-between}
   .tabs button{width:50%;padding:10px 0;text-align:center}
   .tabs button:nth-child(1),.tabs button:nth-child(2){border-bottom:1px solid var(--line)}
-  
   .sbox{padding:12px}
   .sbox input{font-size:15px;padding-bottom:12px}
   .sbox .row{gap:8px}
   .sbox .row .btn{width:100%;margin-left:0;margin-top:10px}
   .sbox .row span{font-size:12px}
-  
   .strip .wrap{height:auto;padding:12px 16px;overflow-x:auto;gap:20px;white-space:nowrap;font-size:13px}
   .strip h2{display:none}
   .zone{grid-template-columns:1fr;margin-top:12px}
@@ -193,7 +183,7 @@ footer p{max-width:340px;margin-top:10px}
   .add{font-size:12px;padding:4px}
 }
 
-/* ===== New: tools, menus, modals ===== */
+/* ===== tools, menus, modals ===== */
 .themeb .sun{display:none}
 [data-theme=dark] .themeb .sun{display:inline}
 [data-theme=dark] .themeb .moon{display:none}
@@ -213,7 +203,6 @@ footer p{max-width:340px;margin-top:10px}
 .f .opt small{display:block;color:var(--mut);font-weight:500;font-size:12px}
 .flinks{display:grid;gap:8px;align-content:start}
 .flinks a:hover{color:#fff}
-.md.sell{max-width:620px}
 .md p.lead{margin-top:10px}
 @media(max-width:768px){.catgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.catgrid{grid-template-columns:1fr}}
@@ -259,7 +248,7 @@ footer p{max-width:340px;margin-top:10px}
 .admtabs button{padding:8px 16px;border-radius:20px;font-weight:700}
 .admtabs button.on{background:var(--red);color:#fff}
 .admr{margin-left:auto;display:flex;gap:16px;align-items:center;font-weight:700}
-.admhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px}
+.admhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px;flex-wrap:wrap}
 .admhead h2{font-size:24px;font-weight:800}
 .admcard{background:var(--card);border-radius:16px;padding:22px}
 .prow{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -301,6 +290,20 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 .cropstage img{max-width:min(520px,calc(100vw - 110px));max-height:55vh;display:block;-webkit-user-drag:none}
 .cropbox{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.55);cursor:move;touch-action:none}
 [hidden]{display:none!important}
+/* ===== Seller page ===== */
+.shero{background:var(--card);border-radius:20px;padding:34px;margin-top:20px}
+.shero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:36px;line-height:1.1;color:var(--red)}
+.shero p{margin-top:10px;max-width:680px}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.benefits div{border:1px solid var(--line);border-radius:14px;padding:14px}
+.benefits b{display:block;margin-bottom:4px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.cta .btn{height:46px}
+.ocard{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px;margin-bottom:10px}
+.ocard .oh{display:flex;justify-content:space-between;gap:10px;font-weight:700}
+.ocard select{border:1.5px solid var(--line);border-radius:10px;padding:8px;background:transparent;max-width:220px}
+.ocard a{color:#0b5ed7;font-weight:700}
+@media(max-width:768px){.benefits{grid-template-columns:1fr}.shero{padding:20px}.shero h1{font-size:26px}}
 /* ===== Dark mode ===== */
 [data-theme=dark] .hsearch input,[data-theme=dark] .sbox input{background:transparent;color:var(--ink)}
 [data-theme=dark] input::placeholder,[data-theme=dark] textarea::placeholder{color:#8a8a96}
@@ -313,11 +316,11 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 [data-theme=dark] .card .ph{background-color:#25252b}
 [data-theme=dark] .fs .im{background:#202026}
 [data-theme=dark] .cats button:hover,[data-theme=dark] .cats button.on,[data-theme=dark] .catgrid button:hover,[data-theme=dark] .catgrid button.on{background:#2a1519}
-[data-theme=dark] .f input,[data-theme=dark] .f select,[data-theme=dark] .f textarea{background:#202026}
+[data-theme=dark] .f input,[data-theme=dark] .f select,[data-theme=dark] .f textarea,[data-theme=dark] .ocard select{background:#202026;color:var(--ink)}
 [data-theme=dark] .sub .r{color:#bbb}
 [data-theme=dark] .arow img,[data-theme=dark] .arow .t{background:#25252b}
 [data-theme=dark] .toast{background:#ececf1;color:#17171a}
-[data-theme=dark] .ver{color:#6ea8fe}
+[data-theme=dark] .ver,[data-theme=dark] .ocard a{color:#6ea8fe}
 [data-theme=dark] .info{background:#2a1519;border-color:#4a2028}
 [data-theme=dark] .banner{background:#3a3112;color:#ffe08a}
 [data-theme=dark] footer{background:#0a0a0c}
@@ -356,7 +359,6 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
   <div class="hrow">
    <a class="logo" href="#" aria-label="SPYDERSHOPPER home"><svg><use href="#logo"/></svg>SPYDERSHOPPER</a>
    
-   <!-- Mobile Search Bar (hidden on desktop) -->
    <form class="hsearch mob-search" id="hmform" style="display:none;"><input id="hmq" placeholder="Search products" aria-label="Search"><button class="btn">Search</button></form>
 
    <div class="hr">
@@ -370,8 +372,8 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
    </div>
   </div>
   <nav class="sub">
-   <a href="#cats" class="on" data-open="#catOv"><svg class="ico"><use href="#i-menu"/></svg>All categories</a><a href="#top">Verified manufacturers</a><a href="#top">Dropshipping</a>
-   <div class="r"><a href="#" data-open="#aboutOv">About SPYDERSHOPPER</a><a href="#">Help Center</a><a href="#" data-open="#sellOv">Sell on SPYDERSHOPPER</a></div>
+   <a href="#cats" class="on" data-open="#catOv"><svg class="ico"><use href="#i-menu"/></svg>All categories</a><a href="#top">Verified manufacturers</a><a href="#sell" id="navSell">Sell on SPYDERSHOPPER</a>
+   <div class="r"><a href="#" data-open="#aboutOv">About SPYDERSHOPPER</a><a href="#">Help Center</a></div>
   </nav>
  </div>
 </header>
@@ -411,9 +413,66 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 
 <div id="viewProduct" hidden><main class="wrap" id="pbody"></main></div>
 
+<!-- Sell on SPYDERSHOPPER (full page) -->
+<div id="viewSell" hidden><main class="wrap" style="padding-bottom:30px">
+ <section class="shero" id="sellIntro">
+  <h1>Sell on SPYDERSHOPPER</h1>
+  <p>List your products and reach buyers across Kenya. Once you publish, your products appear on the SPYDERSHOPPER homepage straight away.</p>
+  <div class="benefits">
+   <div><b>1. Create an account</b>Sign up or sign in. Your seller dashboard opens on this page.</div>
+   <div><b>2. List your products</b>Add photos, price, stock and a description. They go live on the homepage.</div>
+   <div><b>3. Deliver and get paid</b>You deliver orders to the buyer's address. Buyers pay by M-Pesa or card.</div>
+  </div>
+  <div class="info"><b>Delivery:</b> sellers deliver their own orders. <b>SPYDERSHOP DELIVERY</b> for sellers on SPYDERSHOPPER is coming soon.</div>
+  <div class="info" id="commInfo"></div>
+  <p class="note" id="sellMsg" hidden></p>
+  <div class="cta" id="sellCta"><button class="btn" type="button" data-sauth="up">Create seller account</button><button class="btn ghost" type="button" data-sauth="in">Sign in</button></div>
+ </section>
+
+ <section id="sellDash" hidden>
+  <div class="admhead"><h2>Seller dashboard</h2><div class="admtabs" id="sTabs"><button type="button" class="on" data-stab="products">My products</button><button type="button" data-stab="orders">Orders</button></div></div>
+  <div class="info" style="margin:0 0 14px"><b>You handle delivery.</b> When a buyer orders, you will see their name, phone and address under Orders. <b>SPYDERSHOP DELIVERY</b> for sellers is coming soon.</div>
+
+  <section id="stab-products">
+   <div class="admhead" style="margin-top:0"><h2 style="font-size:18px">My products</h2><button class="btn" id="sNew" type="button">List a product</button></div>
+   <div class="admcard" id="slist"></div>
+  </section>
+
+  <section id="stab-edit" hidden>
+   <div class="admhead" style="margin-top:0"><h2 id="sedTitle" style="font-size:18px">List a product</h2><button class="alt" id="sCancel" type="button">Back to my products</button></div>
+   <div class="admcard">
+    <form class="f two" id="sf">
+     <label class="full">Product title<input id="sp_title" required minlength="3"></label>
+     <label>Category<select id="sp_cat"></select></label>
+     <label>Price per unit (KES)<input id="sp_price" type="number" step="0.01" min="0" required></label>
+     <label>Minimum order<input id="sp_moq" type="number" min="1" value="1"></label>
+     <label>Unit<input id="sp_unit" value="piece"></label>
+     <label>Stock available<input id="sp_stock" type="number" min="0" required></label>
+     <label>Brand (optional)<input id="sp_brand"></label>
+     <label class="full">Your shop or business name<input id="sp_shop" required></label>
+     <label class="full">Delivery information<input id="sp_ship" placeholder="e.g. I deliver within Nairobi in 1-2 days"></label>
+     <label class="full">Description<textarea id="sp_desc" rows="4" required></textarea></label>
+     <div class="full">
+      <b style="font-size:13px">Images <span id="simgCount">(0/10)</span></b>
+      <p class="note" style="margin-top:2px">Add at least one image, up to 10. The first image shows on the homepage.</p>
+      <div class="imgm" id="simgMgr"></div>
+      <input id="sp_img" type="file" accept="image/*" multiple>
+     </div>
+     <button class="btn full" id="sgo">Publish product</button>
+    </form>
+   </div>
+  </section>
+
+  <section id="stab-orders" hidden>
+   <div class="admhead" style="margin-top:0"><h2 style="font-size:18px">Orders for your products</h2><button class="alt" type="button" data-stab="orders">Refresh</button></div>
+   <div class="admcard" id="sorders"></div>
+  </section>
+ </section>
+</main></div>
+
 <footer><div class="wrap">
  <div><div class="logo"><svg width="40" height="40"><use href="#logo"/></svg>SPYDERSHOPPER</div><p>Wholesale sourcing from verified suppliers, woven into one network.</p></div>
- <div class="flinks"><a href="#" data-open="#aboutOv">About SPYDERSHOPPER</a><a href="#" data-open="#sellOv">Sell on SPYDERSHOPPER</a><a href="#" data-open="#catOv">All categories</a></div>
+ <div class="flinks"><a href="#" data-open="#aboutOv">About SPYDERSHOPPER</a><a href="#sell">Sell on SPYDERSHOPPER</a><a href="#" data-open="#catOv">All categories</a></div>
  <div>&copy; <span id="yr"></span> SPYDERSHOPPER. All rights reserved.</div>
 </div></footer>
 
@@ -518,33 +577,8 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
  <p class="lead">SPYDERSHOPPER is a wholesale marketplace that connects buyers in Kenya with verified suppliers and manufacturers. Browse factory-direct products, request quotations, ask for customized orders and have everything delivered to your door.</p>
  <div class="info"><b>Verified suppliers.</b> Suppliers carrying the Verified badge have been checked by our team.</div>
  <div class="info"><b>Made to order.</b> Need your logo, packaging or a special spec? Use Fast customization or Request for Quotation.</div>
- <div class="info"><b>Sell with us.</b> Have products to move? We list them for you, and handle delivery if you want us to.</div>
- <form class="f"><button type="button" class="btn" data-open="#sellOv">Sell on SPYDERSHOPPER</button></form>
-</div></div>
-
-<!-- Sell -->
-<div class="ov" id="sellOv"><div class="md sell">
- <button class="x" data-close aria-label="Close">&times;</button>
- <h3>Sell on SPYDERSHOPPER</h3><p class="note">Submit your product and we will review it and list it on the storefront.</p>
- <form class="f two" id="sellF">
-  <label>Your name<input id="s_n" required></label>
-  <label>Phone or email<input id="s_c" required></label>
-  <label class="full">Business name (optional)<input id="s_b"></label>
-  <label class="full">Product title<input id="s_t" required minlength="3"></label>
-  <label>Category<select id="s_cat"></select></label>
-  <label>Price per unit (KES)<input id="s_p" type="number" min="0" step="0.01" required></label>
-  <label>Quantity available<input id="s_q" type="number" min="1" required></label>
-  <label>Minimum order<input id="s_moq" type="number" min="1" value="1"></label>
-  <label class="full">Description<textarea id="s_d" rows="3" required></textarea></label>
-  <div class="full" style="display:grid;gap:8px">
-   <b style="font-size:13px">Who delivers to buyers?</b>
-   <label class="opt"><input type="radio" name="s_ful" value="seller" checked><span>I will deliver orders myself<small>You arrange and cover delivery to the buyer.</small></span></label>
-   <label class="opt"><input type="radio" name="s_ful" value="spydershopper"><span>SPYDERSHOPPER delivers for me<small>A delivery fee, quoted per order, is deducted from your payout.</small></span></label>
-  </div>
-  <div class="full info" id="commInfo"></div>
-  <label class="opt full"><input type="checkbox" id="s_ok" required><span>I agree to the commission on every sale and to the delivery terms above.</span></label>
-  <button class="btn full" id="sellGo">Submit for review</button>
- </form>
+ <div class="info"><b>Sell with us.</b> Have products to move? List them yourself from your seller dashboard. Sellers deliver their own orders.</div>
+ <div class="f"><a class="btn" href="#sell">Sell on SPYDERSHOPPER</a></div>
 </div></div>
 
 <!-- Fast customization -->
@@ -573,13 +607,27 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
  </div>
 </div></div>
 
-<!-- Cart -->
+<!-- Cart + checkout -->
 <aside class="drawer" id="drawer" aria-label="Cart">
  <button class="x" data-closed aria-label="Close cart">&times;</button>
  <h3 style="font-family:'Bricolage Grotesque';font-size:24px">Your cart</h3>
  <div class="list" id="clist"></div>
  <div style="font-size:18px;font-weight:800;display:flex;justify-content:space-between"><span>Total</span><span id="ctot"></span></div>
- <form class="f" id="coF"><input id="o_n" placeholder="Full name" required><input id="o_p" placeholder="Phone" required><input id="o_a" placeholder="Delivery address" required><button class="btn">Place order</button></form>
+ <form class="f" id="coF">
+  <b style="font-size:13px">Delivery details</b>
+  <input id="o_n" placeholder="Full name" required autocomplete="name">
+  <input id="o_p" type="tel" placeholder="Phone" required autocomplete="tel">
+  <input id="o_a" placeholder="Delivery address (street, building, house no.)" required autocomplete="street-address">
+  <input id="o_ar" placeholder="Town / estate / area" required>
+  <input id="o_nt" placeholder="Delivery notes or landmark (optional)">
+  <button class="btn ghost" type="button" id="geoBtn">Share my location (optional)</button>
+  <b style="font-size:13px">Payment method</b>
+  <label class="opt"><input type="radio" name="o_pay" value="mpesa" checked><span>M-Pesa<small>Pay from your phone with M-Pesa</small></span></label>
+  <label class="opt"><input type="radio" name="o_pay" value="card"><span>Debit or credit card<small>Visa and Mastercard</small></span></label>
+  <input id="o_mp" type="tel" placeholder="M-Pesa phone number, e.g. 0712345678">
+  <div class="info" style="margin:0">Your order is delivered by the seller. <b>SPYDERSHOP DELIVERY</b> is coming soon.</div>
+  <button class="btn">Place order</button>
+ </form>
 </aside>
 <div class="toast" id="toast"></div>
 
@@ -611,7 +659,7 @@ async function loadCats(){
   $('#catList').innerHTML = S.cats.map(c=>`<button data-cat="${esc(c.slug)}">${esc(c.name)}<svg class="ico ar"><use href="#i-chev"/></svg></button>`).join('');
   $('#catMenu').innerHTML = S.cats.map(c=>`<button data-cat="${esc(c.slug)}">${esc(c.name)}</button>`).join('');
   $('#p_cat').innerHTML = S.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
-  $('#s_cat').innerHTML = S.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  $('#sp_cat').innerHTML = $('#p_cat').innerHTML;
   $('#chips').innerHTML = ['sunglasses','laptop','earbuds','smart watch','sneakers','solar','phone case'].map(t=>`<button data-q="${t}">${t}</button>`).join('');
 }
 async function fetchRaw(q,cat){
@@ -681,8 +729,9 @@ async function refreshUser(){
   if(S.user){const{data}=await sb.from('profiles').select('role').eq('id',S.user.id).maybeSingle();S.admin=data?.role==='admin'}
   $('#signTxt').textContent = S.user?'Sign out':'Sign in'; $('#joinBtn').hidden=!!S.user; $('#adminBtn').hidden=true;
 }
-function authMode(su){S.signup=su;$('#authT').textContent=su?'Create account':'Sign in';$('#authS').textContent=su?'Join SPYDERSHOPPER to order and track shipments.':'Welcome back to SPYDERSHOPPER.';$('#nameL').hidden=!su;$('#authGo').textContent=su?'Create account':'Sign in';$('#authAsk').textContent=su?'Already registered?':'No account?';$('#authSw').textContent=su?'Sign in':'Create account'}
+function authMode(su){S.signup=su;$('#authT').textContent=su?'Create account':'Sign in';$('#authS').textContent=su?'Join SPYDERSHOPPER to order, sell and track shipments.':'Welcome back to SPYDERSHOPPER.';$('#nameL').hidden=!su;$('#authGo').textContent=su?'Create account':'Sign in';$('#authAsk').textContent=su?'Already registered?':'No account?';$('#authSw').textContent=su?'Sign in':'Create account'}
 $('#authSw').onclick=()=>authMode(!S.signup);
+function gateAll(){gateAdmin();if(location.hash==='#sell')renderSell()}
 
 $('#signBtn').onclick=async()=>{ 
   if(S.user){
@@ -692,7 +741,7 @@ $('#signBtn').onclick=async()=>{
     $('#adminBtn').hidden=true;
     await sb.auth.signOut();
     toast('Signed out');
-    gateAdmin();
+    gateAll();
   } else {
     authMode(false);
     open('#authOv');
@@ -704,32 +753,22 @@ $('#joinBtn').onclick=()=>{authMode(true);open('#authOv')};
 $('#authF').onsubmit=async e=>{
   e.preventDefault(); 
   if(!live) return toast('Add your Supabase keys first');
-  
   const email = $('#aemail').value;
   const password = $('#apass').value;
   const fullName = $('#aname').value;
-  
   const btn = $('#authGo');
   const originalText = btn.textContent;
   btn.disabled = true;
   btn.textContent = 'Please wait...';
-
   let r;
   if (S.signup) {
-    r = await sb.auth.signUp({
-      email, 
-      password, 
-      options: { data: { full_name: fullName } }
-    });
+    r = await sb.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
   } else {
     r = await sb.auth.signInWithPassword({ email, password });
   }
-
   btn.disabled = false;
   btn.textContent = originalText;
-
   if (r.error) return toast(r.error.message);
-
   if (S.signup && !r.data.session) {
     shut();
     toast('Success! Please check your email to confirm your account.');
@@ -737,19 +776,21 @@ $('#authF').onsubmit=async e=>{
     shut(); 
     await refreshUser(); 
     toast('Welcome to SPYDERSHOPPER');
-    gateAdmin();
+    gateAll();
   }
 };
 
-/* ---------- routing: store / product page / admin dashboard ---------- */
+/* ---------- routing: store / product page / seller page / admin dashboard ---------- */
 function showViews(){
-  const h=location.hash,a=h==='#admin',p=h.startsWith('#product/');
-  $('#viewStore').hidden=a||p;$('#viewProduct').hidden=!p;$('#viewAdmin').hidden=!a;$('header').hidden=a;$('footer').hidden=a;
-  return{a,p};
+  const h=location.hash,a=h==='#admin',p=h.startsWith('#product/'),s=h==='#sell';
+  $('#viewStore').hidden=a||p||s;$('#viewProduct').hidden=!p;$('#viewSell').hidden=!s;$('#viewAdmin').hidden=!a;$('header').hidden=a;$('footer').hidden=a;
+  $('#navSell').classList.toggle('on',s);
+  return{a,p,s}
 }
 function route(){
-  const{a,p}=showViews();
-  if(a)gateAdmin();else if(p)loadProductPage(decodeURIComponent(location.hash.slice(9)));
+  shut();
+  const{a,p,s}=showViews();
+  if(a)gateAdmin();else if(p)loadProductPage(decodeURIComponent(location.hash.slice(9)));else if(s){renderSell();window.scrollTo(0,0)}
 }
 function goStore(){if(location.hash)history.pushState(null,'',location.pathname+location.search);route()}
 window.addEventListener('hashchange',route);
@@ -820,6 +861,114 @@ function drawGallery(){
   g.innerHTML=`<img src="${esc(im[PP.i])}" alt="${esc(PP.p.title)}">`+(im.length>1?`<button class="gnav p" type="button" data-gnav="-1" aria-label="Previous image">&lsaquo;</button><button class="gnav n" type="button" data-gnav="1" aria-label="Next image">&rsaquo;</button><span class="gcount">${PP.i+1}/${im.length}</span>`:'');
   $('#gthumbs').innerHTML=im.length>1?im.map((u,i)=>`<button type="button" data-gi="${i}" class="${i===PP.i?'on':''}" style="background-image:url('${esc(u)}')" aria-label="Image ${i+1}"></button>`).join(''):'';
 }
+
+/* ---------- seller page + dashboard (#sell) ---------- */
+$('#commInfo').innerHTML=`<b>Commission:</b> SPYDERSHOPPER keeps ${COMMISSION_PCT}% of every sale. You deliver your own orders, so there is no delivery fee from us.`;
+const SE={id:null,images:[]};
+const SR={rows:new Map()};
+function renderSell(){
+  const on=!!(live&&S.user);
+  $('#sellIntro').hidden=on;$('#sellDash').hidden=!on;
+  $('#sellMsg').hidden=live;
+  if(!live)$('#sellMsg').textContent='Connect Supabase to start selling.';
+  $('#sellCta').hidden=!live;
+  if(on)sTab('products');
+}
+function sTab(t){
+  ['products','edit','orders'].forEach(n=>{$('#stab-'+n).hidden=(n!==t)});
+  $$('#sTabs button').forEach(b=>b.classList.toggle('on',b.dataset.stab===(t==='edit'?'products':t)));
+  if(t==='products')sList();
+  if(t==='orders')sOrders();
+}
+async function sList(){
+  const box=$('#slist');
+  const{data,error}=await sb.from('products').select('*').eq('seller_id',S.user.id).order('created_at',{ascending:false});
+  if(error){box.innerHTML=`<p class="note">Could not load your products: ${esc(error.message)}</p>`;return}
+  SR.rows=new Map((data||[]).map(p=>[String(p.id),p]));
+  box.innerHTML=(data||[]).map(p=>{
+    const n=(Array.isArray(p.images)&&p.images.length)||(p.image_url?1:0);
+    return `<div class="prow"><div class="th" ${p.image_url?`style="background-image:url('${esc(p.image_url)}')"`:''}>${p.image_url?'':ICON_BOX}</div><div class="tx"><b>${esc(p.title)}</b><span>${money(p.price_min,p.currency)} &middot; ${p.stock!=null?Number(p.stock).toLocaleString()+' in stock':'stock not set'} &middot; ${n} image${n==1?'':'s'}</span></div><div class="acts"><button class="edit" type="button" data-sedit="${esc(p.id)}">Edit</button><button class="del" type="button" data-sdel="${esc(p.id)}">Delete</button></div></div>`;
+  }).join('')||'<p class="note">You have not listed any products yet. Click "List a product" to add your first one.</p>';
+}
+function sDrawImgs(){
+  $('#simgCount').textContent=`(${SE.images.length}/10)`;
+  $('#simgMgr').innerHTML=SE.images.map((u,i)=>`<div class="it2">${i===0?'<em>Main</em>':''}<div class="pv" style="background-image:url('${esc(u)}')"></div>${i>0?`<button type="button" data-simain="${i}">Make main</button>`:''}<button type="button" class="del" data-sirm="${i}">Remove</button></div>`).join('')||'<p class="note" style="grid-column:1/-1">No images yet.</p>';
+}
+function sOpenEditor(p){
+  SE.id=p?p.id:null;
+  SE.images=p?(Array.isArray(p.images)&&p.images.length?p.images:(p.image_url?[p.image_url]:[])).slice(0,10):[];
+  $('#sf').reset();
+  $('#sedTitle').textContent=p?'Edit product':'List a product';
+  $('#sgo').textContent=p?'Save changes':'Publish product';
+  let shop='';try{shop=localStorage.getItem('sn_shop')||''}catch(e){}
+  $('#sp_shop').value=shop;
+  if(p){
+    const set=(id,v)=>{$(id).value=v==null?'':v};
+    set('#sp_title',p.title);set('#sp_cat',p.category_id);set('#sp_price',p.price_min);set('#sp_moq',p.moq||1);set('#sp_unit',p.moq_unit||'piece');
+    set('#sp_stock',p.stock);set('#sp_brand',p.brand);set('#sp_shop',p.supplier_name);set('#sp_ship',p.shipping_info);set('#sp_desc',p.description);
+  }
+  sDrawImgs();sTab('edit');window.scrollTo(0,0);
+}
+async function sUpload(files){
+  const room=10-SE.images.length;
+  if(room<=0)return toast('Maximum 10 images per product');
+  if(files.length>room)toast('Only '+room+' more image(s) allowed');
+  for(const f of [...files].slice(0,room)){
+    const path=`sellers/${S.user.id}/${Date.now()}-${Math.random().toString(36).slice(2,7)}-${f.name.replace(/[^\w.-]/g,'_')}`;
+    const up=await sb.storage.from('product-images').upload(path,f,{upsert:false});
+    if(up.error){toast(up.error.message);continue}
+    SE.images.push(sb.storage.from('product-images').getPublicUrl(path).data.publicUrl);
+    sDrawImgs();
+  }
+}
+$('#sp_img').onchange=async e=>{await sUpload(e.target.files);e.target.value=''};
+$('#sNew').onclick=()=>sOpenEditor(null);
+$('#sCancel').onclick=()=>sTab('products');
+$('#sf').onsubmit=async e=>{e.preventDefault();
+  if(!SE.images.length)return toast('Add at least one product image');
+  const b=$('#sgo'),lbl=b.textContent;b.disabled=true;b.textContent='Saving...';
+  try{
+    const shop=$('#sp_shop').value.trim();try{localStorage.setItem('sn_shop',shop)}catch(_){}
+    const row={title:$('#sp_title').value.trim(),description:$('#sp_desc').value,category_id:+$('#sp_cat').value||null,currency:'KES',price_min:+$('#sp_price').value,price_max:null,moq:+$('#sp_moq').value||1,moq_unit:$('#sp_unit').value||'piece',stock:+$('#sp_stock').value,brand:$('#sp_brand').value||null,shipping_info:$('#sp_ship').value.trim()||'Delivered by the seller',supplier_name:shop,supplier_country:'KE',image_url:SE.images[0],images:SE.images};
+    if(!SE.id)Object.assign(row,{seller_id:S.user.id,years_active:1,sold_count:0,verified:false,is_featured:false,tags:[]});
+    const{error}=await(SE.id?sb.from('products').update(row).eq('id',SE.id).eq('seller_id',S.user.id):sb.from('products').insert(row));
+    if(error)throw error;
+    toast(SE.id?'Product updated':'Product published. It is now on the homepage.');
+    loadProducts();sTab('products');
+  }catch(err){toast(err.message||'Could not save')}
+  b.disabled=false;b.textContent=lbl;
+};
+async function sOrders(){
+  const box=$('#sorders');box.innerHTML='<p class="note">Loading orders...</p>';
+  const{data,error}=await sb.rpc('seller_orders');
+  if(error){box.innerHTML=`<p class="note">Could not load orders: ${esc(error.message)}</p>`;return}
+  const st=['new','confirmed','shipped','delivered','cancelled'];
+  box.innerHTML=(data||[]).map(o=>{
+    const map=o.lat!=null&&o.lng!=null?` &middot; <a href="https://www.google.com/maps?q=${o.lat},${o.lng}" target="_blank" rel="noopener">Open map pin</a>`:'';
+    return `<div class="ocard"><div class="oh"><span>${esc(o.title)} &times; ${o.quantity}</span><span>${money(o.unit_price*o.quantity,o.currency)}</span></div>
+    <div class="meta">${new Date(o.created_at).toLocaleString()} &middot; ${o.payment_method==='mpesa'?'M-Pesa':'Card'} (${esc(o.payment_status)})</div>
+    <div><b>Buyer:</b> ${esc(o.buyer_name)} &middot; <a href="tel:${esc(o.buyer_phone)}">${esc(o.buyer_phone)}</a></div>
+    <div><b>Deliver to:</b> ${esc(o.address)}${o.area?', '+esc(o.area):''}${map}</div>
+    ${o.notes?`<div class="meta">Notes: ${esc(o.notes)}</div>`:''}
+    <label>Status <select data-sst="${esc(o.item_id)}">${st.map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${s}</option>`).join('')}</select></label></div>`;
+  }).join('')||'<p class="note">No orders yet. They will appear here when buyers purchase your products.</p>';
+}
+$('#sorders').addEventListener('change',async e=>{
+  const id=e.target.dataset.sst;if(!id)return;
+  const{error}=await sb.rpc('seller_set_item_status',{p_item:id,p_status:e.target.value});
+  toast(error?error.message:'Order status updated');
+});
+$('#viewSell').addEventListener('click',async e=>{
+  const t=e.target.closest('[data-stab],[data-sedit],[data-sdel],[data-simain],[data-sirm],[data-sauth]');if(!t)return;
+  try{
+    if(t.dataset.sauth){authMode(t.dataset.sauth==='up');open('#authOv')}
+    else if(t.dataset.stab)sTab(t.dataset.stab);
+    else if(t.dataset.sedit){const row=SR.rows.get(String(t.dataset.sedit));if(row)sOpenEditor(row)}
+    else if(t.dataset.sdel){if(!confirm('Delete this product?'))return;const{error}=await sb.from('products').delete().eq('id',t.dataset.sdel).eq('seller_id',S.user.id);if(error)return toast(error.message);toast('Deleted');sList();loadProducts()}
+    else if(t.dataset.simain){const[u]=SE.images.splice(+t.dataset.simain,1);SE.images.unshift(u);sDrawImgs()}
+    else if(t.dataset.sirm){SE.images.splice(+t.dataset.sirm,1);sDrawImgs()}
+  }catch(err){toast(err.message||'Something went wrong')}
+});
 
 /* ---------- admin dashboard (only via /#admin) ---------- */
 const E={id:null,images:[]};
@@ -995,7 +1144,7 @@ async function adminClick(e){
   else if(t.dataset.trm){const s=+t.dataset.trm,card=$(`.tilecard[data-slot="${s}"]`);syncTile(card);T[s].image_url=null;card.outerHTML=tileForm(s);toast('Image removed. Click Save to apply.')}
 }
 
-/* ---------- cart ---------- */
+/* ---------- cart + checkout ---------- */
 const saveCart=()=>{localStorage.setItem('sn_cart',JSON.stringify(S.cart));drawCart()};
 function drawCart(){
   $('#cc').textContent=S.cart.reduce((a,i)=>a+i.qty,0);
@@ -1010,7 +1159,7 @@ document.addEventListener('click',async e=>{
   if(t.dataset.gi!==undefined){PP.i=+t.dataset.gi;drawGallery();return}
   if(t.hasAttribute('data-padd')){addToCart(PP.p,Math.max(+$('#pq').value||1,PP.p.moq||1));return}
   if(t.hasAttribute('data-pquote')){$('#r_d').value='Product: '+PP.p.title;$('#r_q').value=Math.max(+$('#pq').value||1,PP.p.moq||1);open('#rfqOv');return}
-  if((t.dataset.cat||t.dataset.q)&&location.hash.startsWith('#product/'))goStore();
+  if((t.dataset.cat||t.dataset.q)&&/^#(product\/|sell)/.test(location.hash))goStore();
   if(t.dataset.open){e.preventDefault();shut();open(t.dataset.open);return}
   if(t.dataset.add){const p=S.products.find(p=>String(p.id)===t.dataset.add);if(!p)return;const ex=S.cart.find(i=>i.id===p.id);ex?ex.qty+=p.moq||1:S.cart.push({id:p.id,title:p.title,price:+p.price_min,cur:p.currency,qty:p.moq||1,img:p.image_url||null});saveCart();toast('Added to cart')}
   if(t.dataset.rm!==undefined){S.cart.splice(+t.dataset.rm,1);saveCart()}
@@ -1021,11 +1170,26 @@ document.addEventListener('click',async e=>{
   if(t.hasAttribute('data-close'))shut(); if(t.hasAttribute('data-closed'))$('#drawer').classList.remove('show');
 });
 $('#cartBtn').onclick=()=>{drawCart();$('#drawer').classList.add('show')};
+
+let GEO=null;
+const payVal=()=>(document.querySelector('input[name=o_pay]:checked')||{}).value||'mpesa';
+function payUI(){const m=payVal();$('#o_mp').hidden=m!=='mpesa';$('#o_mp').required=m==='mpesa'}
+$$('input[name=o_pay]').forEach(r=>r.onchange=payUI);payUI();
+$('#geoBtn').onclick=()=>{
+  if(!navigator.geolocation)return toast('Location is not supported on this device');
+  navigator.geolocation.getCurrentPosition(p=>{GEO={lat:p.coords.latitude,lng:p.coords.longitude};$('#geoBtn').textContent='Location saved';toast('Location saved with your order')},()=>toast('Could not get your location'),{enableHighAccuracy:true,timeout:10000});
+};
 $('#coF').onsubmit=async e=>{e.preventDefault(); if(!S.cart.length)return toast('Cart is empty'); if(!live)return toast('Demo mode: connect Supabase to place orders'); if(!S.user){$('#drawer').classList.remove('show');authMode(false);return open('#authOv')}
-  await sb.from('cart_items').delete().eq('user_id',S.user.id);
-  const ins=await sb.from('cart_items').insert(S.cart.map(i=>({product_id:i.id,quantity:i.qty}))); if(ins.error)return toast(ins.error.message);
-  const{error}=await sb.rpc('checkout',{p_name:$('#o_n').value,p_phone:$('#o_p').value,p_address:$('#o_a').value}); if(error)return toast(error.message);
-  S.cart=[];saveCart();$('#drawer').classList.remove('show');toast('Order placed. We will contact you shortly.');
+  const m=payVal(),mp=$('#o_mp').value.trim();
+  if(m==='mpesa'&&!mp)return toast('Enter your M-Pesa phone number');
+  const{error}=await sb.rpc('place_order',{
+    p_items:S.cart.map(i=>({product_id:String(i.id),quantity:i.qty})),
+    p_name:$('#o_n').value,p_phone:$('#o_p').value,p_address:$('#o_a').value,p_area:$('#o_ar').value,p_notes:$('#o_nt').value||null,
+    p_lat:GEO?GEO.lat:null,p_lng:GEO?GEO.lng:null,p_method:m,p_mpesa_phone:m==='mpesa'?mp:null});
+  if(error)return toast(error.message);
+  S.cart=[];saveCart();$('#coF').reset();payUI();GEO=null;$('#geoBtn').textContent='Share my location (optional)';
+  $('#drawer').classList.remove('show');
+  toast(m==='mpesa'?'Order placed. We will send the M-Pesa payment request to '+mp:'Order placed. We will send you a secure card payment link.');
 };
 
 /* ---------- search tabs: AI Mode / Products / Manufacturers / Worldwide ---------- */
@@ -1045,24 +1209,6 @@ $('#custF').onsubmit=async e=>{e.preventDefault();
   const details=`[CUSTOMIZATION] Product: ${$('#c_p').value} | Type: ${$('#c_t').value} | ${$('#c_d').value}`;
   if(live){const{error}=await sb.from('quote_requests').insert({name:$('#c_n').value,contact:$('#c_c').value,details,quantity:+$('#c_q').value||null});if(error)return toast(error.message)}
   shut();$('#custF').reset();toast('Customization request sent. We will reply shortly.');
-};
-
-/* ---------- sell on SPYDERSHOPPER ---------- */
-$('#commInfo').innerHTML=`<b>Commission:</b> SPYDERSHOPPER keeps ${COMMISSION_PCT}% of every sale. If you choose our delivery, the delivery fee is deducted from your payout as well.`;
-$('#sellF').onsubmit=async e=>{e.preventDefault();
-  const ful=(document.querySelector('input[name=s_ful]:checked')||{}).value||'seller';
-  const rec={name:$('#s_n').value,contact:$('#s_c').value,business:$('#s_b').value||null,product_title:$('#s_t').value,category_id:+$('#s_cat').value||null,description:$('#s_d').value,price:+$('#s_p').value,stock:+$('#s_q').value,moq:+$('#s_moq').value||1,fulfillment:ful,commission_pct:COMMISSION_PCT,user_id:S.user?S.user.id:null};
-  const b=$('#sellGo');b.disabled=true;b.textContent='Submitting...';
-  if(live){
-    let r=await sb.from('seller_applications').insert(rec);
-    if(r.error){
-      const details=`[SELL REQUEST] ${rec.product_title} | Business: ${rec.business||'-'} | Price: KES ${rec.price} | Stock: ${rec.stock} | MOQ: ${rec.moq} | Delivery: ${ful==='seller'?'seller delivers':'SPYDERSHOPPER delivers (fee from payout)'} | Commission: ${COMMISSION_PCT}% | ${rec.description}`;
-      r=await sb.from('quote_requests').insert({name:rec.name,contact:rec.contact,details,quantity:rec.stock});
-    }
-    if(r.error){b.disabled=false;b.textContent='Submit for review';return toast(r.error.message)}
-  }
-  b.disabled=false;b.textContent='Submit for review';
-  shut();$('#sellF').reset();toast('Thank you. We will review your product and contact you.');
 };
 
 /* ---------- search + misc ---------- */
