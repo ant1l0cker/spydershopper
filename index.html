@@ -303,6 +303,8 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 .ocard .oh{display:flex;justify-content:space-between;gap:10px;font-weight:700}
 .ocard select{border:1.5px solid var(--line);border-radius:10px;padding:8px;background:transparent;max-width:220px}
 .ocard a{color:#0b5ed7;font-weight:700}
+.fee{margin:0;line-height:1.6}
+.fee b{color:var(--red)}
 @media(max-width:768px){.benefits{grid-template-columns:1fr}.shero{padding:20px}.shero h1{font-size:26px}}
 /* ===== Dark mode ===== */
 [data-theme=dark] .hsearch input,[data-theme=dark] .sbox input{background:transparent;color:var(--ink)}
@@ -314,7 +316,8 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
 [data-theme=dark] .chips button,[data-theme=dark] .fbar button{background:#1a1a1f;color:#ccc}
 [data-theme=dark] .chips button:hover,[data-theme=dark] .fbar button:hover,[data-theme=dark] .fbar button.on{color:var(--red-l);border-color:var(--red-l)}
 [data-theme=dark] .card .ph{background-color:#25252b}
-[data-theme=dark] .fs .im{background:#202026}
+/* FIX: use background-color only, so the tile photo keeps its cover/center sizing in dark mode */
+[data-theme=dark] .fs .im{background-color:#202026}
 [data-theme=dark] .cats button:hover,[data-theme=dark] .cats button.on,[data-theme=dark] .catgrid button:hover,[data-theme=dark] .catgrid button.on{background:#2a1519}
 [data-theme=dark] .f input,[data-theme=dark] .f select,[data-theme=dark] .f textarea,[data-theme=dark] .ocard select{background:#202026;color:var(--ink)}
 [data-theme=dark] .sub .r{color:#bbb}
@@ -445,6 +448,7 @@ button,a,.card{touch-action:manipulation;-webkit-tap-highlight-color:transparent
      <label class="full">Product title<input id="sp_title" required minlength="3"></label>
      <label>Category<select id="sp_cat"></select></label>
      <label>Price per unit (KES)<input id="sp_price" type="number" step="0.01" min="0" required></label>
+     <div class="info full fee" id="sp_fee" aria-live="polite"></div>
      <label>Minimum order<input id="sp_moq" type="number" min="1" value="1"></label>
      <label>Unit<input id="sp_unit" value="piece"></label>
      <label>Stock available<input id="sp_stock" type="number" min="0" required></label>
@@ -645,6 +649,7 @@ const ICON_BOX = '<svg viewBox="0 0 24 24"><use href="#i-box"/></svg>';
 const DEMO_CATS = ['Apparel & Accessories|apparel','Consumer Electronics|electronics','Home & Garden|home-garden','Sports & Entertainment|sports','Jewelry, Eyewear & Watches|jewelry-eyewear','Sunglasses|sunglasses','Mobile Phones|phones','Laptops & Computers|laptops','Bags & Luggage|bags','Shoes & Footwear|shoes'].map((c,i)=>{const[a,b]=c.split('|');return{id:i+1,name:a,slug:b}});
 const DEMO = [['Polarized Square Sunglasses UV400 Men',180,650,2,'pieces',1240,'sunglasses'],['Smart Watch Series 9 Waterproof Bluetooth Call',1850,3200,1,'piece',860,'jewelry-eyewear'],['Wireless Earbuds TWS Noise Cancelling',520,1400,5,'pieces',5320,'electronics'],['15.6 Inch Business Laptop 16GB 512GB SSD',28500,41000,1,'piece',310,'laptops'],['Genuine Leather Crossbody Bag Women',950,2100,3,'pieces',780,'bags'],['Men Running Sneakers Breathable Mesh',720,1600,10,'pairs',2210,'shoes'],['Original Smartphone 6.7" 5G 256GB',9800,16500,1,'unit',640,'phones'],['Solar Power Bank 30000mAh Fast Charge',1100,2300,2,'pieces',3400,'electronics'],['Acrylic Eyeglass Frames Unisex Retro',150,480,5,'pieces',990,'sunglasses'],['Stainless Steel Jewelry Set Gold Plated',260,900,6,'sets',1520,'jewelry-eyewear']].map((d,i)=>({id:'d'+i,title:d[0],price_min:d[1],price_max:d[2],moq:d[3],moq_unit:d[4],sold_count:d[5],cat:d[6],currency:'KES',verified:i%3!=2,years_active:1+i%6,supplier_country:'CN',is_featured:i<3,reorder_rate:i%2?37:null}));
 const money = (n,c='KES') => (c==='USD'?'$':'Ksh ')+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+const money2 = n => 'Ksh '+Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let tt; const toast = m => {const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2600)};
 const open = id => $(id).classList.add('show'), shut = () => $$('.ov').forEach(o=>o.classList.remove('show'));
@@ -866,6 +871,15 @@ function drawGallery(){
 $('#commInfo').innerHTML=`<b>Commission:</b> SPYDERSHOPPER keeps ${COMMISSION_PCT}% of every sale. You deliver your own orders, so there is no delivery fee from us.`;
 const SE={id:null,images:[]};
 const SR={rows:new Map()};
+/* live commission preview under the price field */
+function sFee(){
+  const v=+$('#sp_price').value, m=+$('#sp_moq').value||1, el=$('#sp_fee');
+  if(!(v>0)){el.innerHTML=`<b>Our commission:</b> SPYDERSHOPPER keeps ${COMMISSION_PCT}% of every sale. Enter your price to see exactly what you will receive.`;return}
+  const fee=v*COMMISSION_PCT/100, net=v-fee;
+  el.innerHTML=`<b>Our commission (${COMMISSION_PCT}%):</b> ${money2(fee)} per unit<br><b>You receive:</b> ${money2(net)} per unit`+(m>1?` &middot; ${money2(net*m)} for the minimum order of ${m}`:'');
+}
+$('#sp_price').addEventListener('input',sFee);
+$('#sp_moq').addEventListener('input',sFee);
 function renderSell(){
   const on=!!(live&&S.user);
   $('#sellIntro').hidden=on;$('#sellDash').hidden=!on;
@@ -907,7 +921,7 @@ function sOpenEditor(p){
     set('#sp_title',p.title);set('#sp_cat',p.category_id);set('#sp_price',p.price_min);set('#sp_moq',p.moq||1);set('#sp_unit',p.moq_unit||'piece');
     set('#sp_stock',p.stock);set('#sp_brand',p.brand);set('#sp_shop',p.supplier_name);set('#sp_ship',p.shipping_info);set('#sp_desc',p.description);
   }
-  sDrawImgs();sTab('edit');window.scrollTo(0,0);
+  sFee();sDrawImgs();sTab('edit');window.scrollTo(0,0);
 }
 async function sUpload(files){
   const room=10-SE.images.length;
@@ -945,8 +959,10 @@ async function sOrders(){
   const st=['new','confirmed','shipped','delivered','cancelled'];
   box.innerHTML=(data||[]).map(o=>{
     const map=o.lat!=null&&o.lng!=null?` &middot; <a href="https://www.google.com/maps?q=${o.lat},${o.lng}" target="_blank" rel="noopener">Open map pin</a>`:'';
-    return `<div class="ocard"><div class="oh"><span>${esc(o.title)} &times; ${o.quantity}</span><span>${money(o.unit_price*o.quantity,o.currency)}</span></div>
+    const gross=o.unit_price*o.quantity, net=gross*(1-COMMISSION_PCT/100);
+    return `<div class="ocard"><div class="oh"><span>${esc(o.title)} &times; ${o.quantity}</span><span>${money(gross,o.currency)}</span></div>
     <div class="meta">${new Date(o.created_at).toLocaleString()} &middot; ${o.payment_method==='mpesa'?'M-Pesa':'Card'} (${esc(o.payment_status)})</div>
+    <div class="meta">After ${COMMISSION_PCT}% commission you receive <b>${money2(net)}</b></div>
     <div><b>Buyer:</b> ${esc(o.buyer_name)} &middot; <a href="tel:${esc(o.buyer_phone)}">${esc(o.buyer_phone)}</a></div>
     <div><b>Deliver to:</b> ${esc(o.address)}${o.area?', '+esc(o.area):''}${map}</div>
     ${o.notes?`<div class="meta">Notes: ${esc(o.notes)}</div>`:''}
@@ -1222,6 +1238,7 @@ $('#rfqF').onsubmit=async e=>{e.preventDefault();if(live){const{error}=await sb.
 $$('.ov').forEach(o=>o.addEventListener('mousedown',e=>{if(e.target===o)shut()}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){shut();$('#drawer').classList.remove('show')}});
 $('#yr').textContent=new Date().getFullYear(); $('#demoBanner').hidden=!!live;
+sFee();
 (async()=>{showViews();drawTiles();await loadCats();await refreshUser();await loadProducts();await loadTiles();drawCart();route();if(live)sb.auth.onAuthStateChange(()=>{setTimeout(refreshUser,0)})})();
 </script>
 </body>
